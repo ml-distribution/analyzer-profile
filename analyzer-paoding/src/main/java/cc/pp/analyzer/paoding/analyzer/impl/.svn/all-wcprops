@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/128/trunk/paoding-analysis/src/net/paoding/analysis/analyzer/impl
+END
+MostWordsModeDictionariesCompiler.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/!svn/ver/127/trunk/paoding-analysis/src/net/paoding/analysis/analyzer/impl/MostWordsModeDictionariesCompiler.java
+END
+MostWordsTokenCollector.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/!svn/ver/114/trunk/paoding-analysis/src/net/paoding/analysis/analyzer/impl/MostWordsTokenCollector.java
+END
+CompiledFileDictionaries.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/!svn/ver/122/trunk/paoding-analysis/src/net/paoding/analysis/analyzer/impl/CompiledFileDictionaries.java
+END
+MaxWordLengthTokenCollector.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/!svn/ver/114/trunk/paoding-analysis/src/net/paoding/analysis/analyzer/impl/MaxWordLengthTokenCollector.java
+END
+SortingDictionariesCompiler.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/!svn/ver/128/trunk/paoding-analysis/src/net/paoding/analysis/analyzer/impl/SortingDictionariesCompiler.java
+END

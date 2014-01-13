@@ -1,0 +1,24 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>cc.pp.study</groupId>
+	<artifactId>analyzer-profile</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>Analyzer Profile</name>
+	<description>Profiling several Analyzers for Chinese Words Segment</description>
+
+	<modules>
+		<module>analyzer-parent</module>
+		<module>analyzer-ictclas4j</module>
+		<module>analyzer-ik</module>
+		<module>analyzer-imdict</module>
+		<module>analyzer-mmseg4j</module>
+		<module>analyzer-paoding</module>
+		<module>analyzer-smallseg</module>
+		<module>analyzer-fudan</module>
+		<module>analyzer-smartcn</module>
+		<module>analyzer-testing</module>
+	</modules>
+
+</project>

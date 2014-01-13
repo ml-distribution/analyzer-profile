@@ -1,0 +1,23 @@
+{\rtf1\ansi\ansicpg0\uc1\deff0\deflang0\deflangfe0{\fonttbl{\f0\fnil\fcharset1 Arial;}{\f1\fnil\fcharset2 Symbol;}}{\colortbl;\red0\green0\blue0;\red0\green0\blue255;\red0\green255\blue255;\red0\green255\blue0;\red255\green0\blue255;\red255\green0\blue0;\red255\green255\blue0;\red255\green255\blue255;\red0\green0\blue128;\red0\green128\blue128;\red0\green128\blue0;\red128\green0\blue128;\red128\green0\blue0;\red128\green128\blue0;\red128\green128\blue128;\red192\green192\blue192;\red3\green126\blue226;\red43\green94\blue196;}{\*\listtable{\list\listtemplateid1498245597\listsimple1
+{\listlevel\levelnfc0\leveljc0\li240\fi-240\jclisttab\tx390\levelstartat1{\leveltext\'02\'00.;}{\levelnumbers\'01;}\f0\fs20}
+\listid1812843352}
+{\list\listtemplateid1541856444\listsimple1
+{\listlevel\levelnfc23\leveljc0\li240\fi-240\jclisttab\tx390{\leveltext\'01\'b7;}{\levelnumbers;}\f1\fs20\lang1024}
+\listid658507187}
+}
+{\*\listoverridetable
+{\listoverride\listid1812843352\listoverridecount0\ls1}
+{\listoverride\listid658507187\listoverridecount0\ls2}
+}
+
+\uc1
+\pard\fi0\li0\ql\ri0\sb0\sa0\itap0 \plain \f0\fs20 WORD_RESULT = struct tagWordResult
+\par \pard\fi0\li0\ql\ri0\sb0\sa0\itap0 "struct tagWordResult" is defined in Dictionary.h:
+\par \pard\li240\fi-240\jclisttab\tx390\ql\ri0\sb0\sa0\itap0 {\listtext\pard\plain\f0\fs20 1.\tab}\ls1\ilvl0 int nHandle - Part-of-speech tag of the word. In CSegment::GenerateWord(), there is some line that m_pWordSeg[nIndex][k].nHandle=30464; // 'w'*256. I.e. the second last byte is written a 'w'.
+\plain\par {\listtext\pard\plain\f0\fs20 2.\tab}\ls1\ilvl0 \plain \f0\fs20 int nWordLen - probably the no. of char of the word
+\plain\par {\listtext\pard\plain\f0\fs20 3.\tab}\ls1\ilvl0 \plain \f0\fs20 char *sWord - the word ( a string of char)
+\plain\par {\listtext\pard\plain\f0\fs20 4.\tab}\ls1\ilvl0 \plain \f0\fs20 double dValue = -log(freq/MAX)
+\line 
+\plain\par \pard\fi0\li0\ql\ri0\sb0\sa0\itap0 \plain \f0\fs20 
+\par \pard\fi0\li0\ql\ri0\sb0\sa0\itap0 CSegGraph::GenerateWordNet()
+\par \pard\li240\fi-240\jclisttab\tx390\ql\ri0\sb0\sa0\itap0 {\listtext\pard\plain\f1\fs20\lang1024 \'b7\tab}\ls2\ilvl0 Including the process AtomSegment(sSentence), which is the atomic segmentation}

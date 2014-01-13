@@ -1,0 +1,119 @@
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/131/trunk/paoding-analysis/src/net/paoding/analysis/knife
+END
+Beef.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/102/trunk/paoding-analysis/src/net/paoding/analysis/knife/Beef.java
+END
+PaodingMaker.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/131/trunk/paoding-analysis/src/net/paoding/analysis/knife/PaodingMaker.java
+END
+NumberKnife.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/126/trunk/paoding-analysis/src/net/paoding/analysis/knife/NumberKnife.java
+END
+KnifeBox.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/106/trunk/paoding-analysis/src/net/paoding/analysis/knife/KnifeBox.java
+END
+DictionariesCompiler.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/!svn/ver/114/trunk/paoding-analysis/src/net/paoding/analysis/knife/DictionariesCompiler.java
+END
+CombinatoricsKnife.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/!svn/ver/126/trunk/paoding-analysis/src/net/paoding/analysis/knife/CombinatoricsKnife.java
+END
+CollectorStdoutImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/!svn/ver/59/trunk/paoding-analysis/src/net/paoding/analysis/knife/CollectorStdoutImpl.java
+END
+SmartKnifeBox.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/106/trunk/paoding-analysis/src/net/paoding/analysis/knife/SmartKnifeBox.java
+END
+LetterKnife.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/126/trunk/paoding-analysis/src/net/paoding/analysis/knife/LetterKnife.java
+END
+Dictionaries.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/114/trunk/paoding-analysis/src/net/paoding/analysis/knife/Dictionaries.java
+END
+FileDictionaries.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/!svn/ver/122/trunk/paoding-analysis/src/net/paoding/analysis/knife/FileDictionaries.java
+END
+Paoding.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/114/trunk/paoding-analysis/src/net/paoding/analysis/knife/Paoding.java
+END
+FakeKnife.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/106/trunk/paoding-analysis/src/net/paoding/analysis/knife/FakeKnife.java
+END
+CJKKnife.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/122/trunk/paoding-analysis/src/net/paoding/analysis/knife/CJKKnife.java
+END
+Collector.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/43/trunk/paoding-analysis/src/net/paoding/analysis/knife/Collector.java
+END
+CharSet.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/106/trunk/paoding-analysis/src/net/paoding/analysis/knife/CharSet.java
+END
+DictionariesWare.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/!svn/ver/52/trunk/paoding-analysis/src/net/paoding/analysis/knife/DictionariesWare.java
+END
+Knife.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/111/trunk/paoding-analysis/src/net/paoding/analysis/knife/Knife.java
+END
+FileDictionariesDifferenceListener.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/!svn/ver/114/trunk/paoding-analysis/src/net/paoding/analysis/knife/FileDictionariesDifferenceListener.java
+END

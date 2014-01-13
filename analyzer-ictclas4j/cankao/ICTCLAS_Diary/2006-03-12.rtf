@@ -1,0 +1,30 @@
+{\rtf1\ansi\ansicpg0\uc1\deff0\deflang0\deflangfe0{\fonttbl{\f0\fnil\fcharset1 Arial;}{\f1\fnil\fcharset2 Symbol;}}{\colortbl;\red0\green0\blue0;\red0\green0\blue255;\red0\green255\blue255;\red0\green255\blue0;\red255\green0\blue255;\red255\green0\blue0;\red255\green255\blue0;\red255\green255\blue255;\red0\green0\blue128;\red0\green128\blue128;\red0\green128\blue0;\red128\green0\blue128;\red128\green0\blue0;\red128\green128\blue0;\red128\green128\blue128;\red192\green192\blue192;\red3\green126\blue226;\red43\green94\blue196;}{\*\listtable{\list\listtemplateid302915932\listsimple1
+{\listlevel\levelnfc23\leveljc0\li240\fi-240\jclisttab\tx390{\leveltext\'01\'b7;}{\levelnumbers;}\f1\fs20\lang1024}
+\listid308173006}
+{\list\listtemplateid1075476490\listsimple1
+{\listlevel\levelnfc23\leveljc0\li240\fi-240\jclisttab\tx390{\leveltext\'01\'b7;}{\levelnumbers;}\f1\fs20\lang1024}
+\listid46548537}
+}
+{\*\listoverridetable
+{\listoverride\listid308173006\listoverridecount0\ls1}
+{\listoverride\listid46548537\listoverridecount0\ls2}
+}
+
+\uc1
+\pard\fi0\li0\ql\ri0\sb0\sa0\itap0 \plain \f0\fs20 CSpan::POSTagging()
+\par \pard\li240\fi-240\jclisttab\tx390\ql\ri0\sb0\sa0\itap0 {\listtext\pard\plain\f1\fs20\lang1024 \'b7\tab}\ls2\ilvl0 POS tagging with Hidden Markov Model
+\plain\par {\listtext\pard\plain\f1\fs20\lang1024 \'b7\tab}\ls2\ilvl0 \plain \f0\fs20 This is the last stage in CResult::Processing()
+\plain\par {\listtext\pard\plain\f1\fs20\lang1024 \'b7\tab}\ls2\ilvl0 \plain \f0\fs20 input parameter: m_Seg.m_pWordSeg[i], which is one of the results of segmentation (i.e. an array of WORD_RESULT) (structure please read diary of 6 March)
+\plain\par \pard\fi0\li0\ql\ri0\sb0\sa0\itap0 \plain \f0\fs20 
+\par \pard\fi0\li0\ql\ri0\sb0\sa0\itap0 CSpan::Reset(bool toContinue)
+\par \pard\li240\fi-240\jclisttab\tx390\ql\ri0\sb0\sa0\itap0 {\listtext\pard\plain\f1\fs20\lang1024 \'b7\tab}\ls1\ilvl0 the input boolean parameter is to tell if 
+\plain\par \pard\fi0\li0\ql\ri0\sb0\sa0\itap0 \plain \f0\fs20 
+\par \pard\fi0\li0\ql\ri0\sb0\sa0\itap0 CSpan::GetFrom(PWORD_RESULT pWordItems,int nIndex,CDictionary &dictCore,CDictionary &dictUnknown)
+\par \pard\li240\fi-240\jclisttab\tx390\ql\ri0\sb0\sa0\itap0 {\listtext\pard\plain\f1\fs20\lang1024 \'b7\tab}\ls1\ilvl0 Get words from the word items, start from nIndex, Function for unknown words recognition
+\plain\par {\listtext\pard\plain\f1\fs20\lang1024 \'b7\tab}\ls1\ilvl0 \plain \f0\fs20 Return value: integer to indicate the index of the next word (index in the input array of WORD_RESULT) to start in the next turn
+\line Return -1 if end is reached
+\plain\par {\listtext\pard\plain\f1\fs20\lang1024 \'b7\tab}\ls1\ilvl0 \plain \f0\fs20 It seems the loop would only stop when it found a word that has only one possible POS tag (not counting the ending POS, -1)
+\plain\par {\listtext\pard\plain\f1\fs20\lang1024 \'b7\tab}\ls1\ilvl0 \plain \f0\fs20 m_nTags[i], m_dFrequency[i], m_sWord[i], etc., refer to the i_th word in the input segmentation result. I.e. m_nTags[0] correspond to pWordItems[nIndex], m_nTags[1] correspond to pWordItems[nIndex+1], etc. 
+\plain\par \pard\fi0\li0\ql\ri0\sb0\sa0\itap0 \plain \f0\fs20 
+\par \pard\fi0\li0\ql\ri0\sb0\sa0\itap0 
+\par \pard\fi0\li0\ql\ri0\sb0\sa0\itap0 \par}

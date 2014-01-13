@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/!svn/ver/126/trunk/paoding-analysis/src/net/paoding/analysis/dictionary/support/filewords
+END
+FileWordsReader.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/!svn/ver/122/trunk/paoding-analysis/src/net/paoding/analysis/dictionary/support/filewords/FileWordsReader.java
+END
+ReadListener.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/!svn/ver/31/trunk/paoding-analysis/src/net/paoding/analysis/dictionary/support/filewords/ReadListener.java
+END
+SimpleReadListener.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/!svn/ver/122/trunk/paoding-analysis/src/net/paoding/analysis/dictionary/support/filewords/SimpleReadListener.java
+END
+SimpleReadListener2.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/!svn/ver/126/trunk/paoding-analysis/src/net/paoding/analysis/dictionary/support/filewords/SimpleReadListener2.java
+END

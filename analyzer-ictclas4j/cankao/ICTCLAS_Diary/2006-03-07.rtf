@@ -1,0 +1,17 @@
+{\rtf1\ansi\ansicpg0\uc1\deff0\deflang0\deflangfe0{\fonttbl{\f0\fnil\fcharset1 Arial;}{\f1\fnil\fcharset2 Symbol;}}{\colortbl;\red0\green0\blue0;\red0\green0\blue255;\red0\green255\blue255;\red0\green255\blue0;\red255\green0\blue255;\red255\green0\blue0;\red255\green255\blue0;\red255\green255\blue255;\red0\green0\blue128;\red0\green128\blue128;\red0\green128\blue0;\red128\green0\blue128;\red128\green0\blue0;\red128\green128\blue0;\red128\green128\blue128;\red192\green192\blue192;\red3\green126\blue226;\red43\green94\blue196;}{\*\listtable{\list\listtemplateid349236356\listsimple1
+{\listlevel\levelnfc23\leveljc0\li240\fi-240\jclisttab\tx390{\leveltext\'01\'b7;}{\levelnumbers;}\f1\fs20\lang1024}
+\listid707588246}
+}
+{\*\listoverridetable
+{\listoverride\listid707588246\listoverridecount0\ls1}
+}
+
+\uc1
+\pard\fi0\li0\ql\ri0\sb0\sa0\itap0 \plain \f0\fs20 CSegGraph::AtomSegment(aSentence)
+\par \pard\li240\fi-240\jclisttab\tx390\ql\ri0\sb0\sa0\itap0 {\listtext\pard\plain\f1\fs20\lang1024 \'b7\tab}\ls1\ilvl0 only do atom segmentation, i.e. break the input sentence into atoms, e.g. a Chinese char, a number string, etc.
+\plain\par {\listtext\pard\plain\f1\fs20\lang1024 \'b7\tab}\ls1\ilvl0 \plain \f0\fs20 only output one result, which is stored in all member variables of CSegGraph, except m_segGraph
+\plain\par \pard\fi0\li0\ql\ri0\sb0\sa0\itap0 \plain \f0\fs20 
+\par \pard\fi0\li0\ql\ri0\sb0\sa0\itap0 class CDynamicArray
+\par \pard\li240\fi-240\jclisttab\tx390\ql\ri0\sb0\sa0\itap0 {\listtext\pard\plain\f1\fs20\lang1024 \'b7\tab}\ls1\ilvl0 a data struct that represent a matrix which is supposed to be great and sparse
+\plain\par {\listtext\pard\plain\f1\fs20\lang1024 \'b7\tab}\ls1\ilvl0 \plain \f0\fs20 it is actually a chain of nodes with their column id and row id record in each node
+\plain\par {\listtext\pard\plain\f1\fs20\lang1024 \'b7\tab}\ls1\ilvl0 \plain \f0\fs20 Each node record a word (a string of char), the word length, the part-of-speech tag, the value (double), and the pointer to next node}

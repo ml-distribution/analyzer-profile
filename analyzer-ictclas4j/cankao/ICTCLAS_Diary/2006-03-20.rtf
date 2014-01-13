@@ -1,0 +1,31 @@
+{\rtf1\ansi\ansicpg0\uc1\deff0\deflang0\deflangfe0{\fonttbl{\f0\fnil\fcharset1 Arial;}{\f1\fnil\fcharset2 Symbol;}}{\colortbl;\red0\green0\blue0;\red0\green0\blue255;\red0\green255\blue255;\red0\green255\blue0;\red255\green0\blue255;\red255\green0\blue0;\red255\green255\blue0;\red255\green255\blue255;\red0\green0\blue128;\red0\green128\blue128;\red0\green128\blue0;\red128\green0\blue128;\red128\green0\blue0;\red128\green128\blue0;\red128\green128\blue128;\red192\green192\blue192;\red3\green126\blue226;\red43\green94\blue196;}{\*\listtable{\list\listtemplateid1663178848\listsimple1
+{\listlevel\levelnfc23\leveljc0\li240\fi-240\jclisttab\tx390{\leveltext\'01\'b7;}{\levelnumbers;}\f1\fs20\lang1024}
+\listid1397276647}
+}
+{\*\listoverridetable
+{\listoverride\listid1397276647\listoverridecount0\ls1}
+}
+
+\uc1
+\pard\fi0\li0\ql\ri0\sb0\sa0\itap0 \plain \f0\fs20 In a CSegment object,
+\par \pard\li240\fi-240\jclisttab\tx390\ql\ri0\sb0\sa0\itap0 {\listtext\pard\plain\f1\fs20\lang1024 \'b7\tab}\ls1\ilvl0 m_nWordCount = the no. of known words (i.e. found in build-in lexicon, probably coreDict.dct) that found in the sentence.
+\plain\par {\listtext\pard\plain\f1\fs20\lang1024 \'b7\tab}\ls1\ilvl0 \plain \f0\fs20 m_npWordPosMapTable = a pointer to a integer array of length m_nWordCount. Each entry is an integer that records 2 numbers: first is the starting index (in unit of char) of the word in the original sentence, the second number is the index of the atom that end the word \plain \f0\ul\fs20 plus 1\plain \f0\fs20 . Each entry in the array is 1000*first_num + second_num.
+\plain\par {\listtext\pard\plain\f1\fs20\lang1024 \'b7\tab}\ls1\ilvl0 \plain \f0\fs20 m_graphOptimum is a CDynamicArray object that also records a transition matrix. It records the most optimal transition path of the transition matrix of m_graphSeg (the CSegGraph object) after m_Seg.BiSegment() in CResult::Processing(...). And some unknown entity tags are also added to it after person and location recognition (Previous entries are not deleted). 
+\plain\par \pard\fi0\li0\ql\ri0\sb0\sa0\itap0 \plain \f0\fs20 
+\par \pard\fi0\li0\ql\ri0\sb0\sa0\itap0 In m_graphSeg (a CSegGraph object),
+\par \pard\li240\fi-240\jclisttab\tx390\ql\ri0\sb0\sa0\itap0 {\listtext\pard\plain\f1\fs20\lang1024 \'b7\tab}\ls1\ilvl0 m_nAtomCount = number of atoms in the sentence (no overlapping)
+\plain\par {\listtext\pard\plain\f1\fs20\lang1024 \'b7\tab}\ls1\ilvl0 \plain \f0\fs20 m_sAtom[i] is the word of atom i
+\plain\par {\listtext\pard\plain\f1\fs20\lang1024 \'b7\tab}\ls1\ilvl0 \plain \f0\fs20 m_nAtomLength[i] is the no. of char of atom i
+\plain\par {\listtext\pard\plain\f1\fs20\lang1024 \'b7\tab}\ls1\ilvl0 \plain \f0\fs20 m_nAtomPOS[i] is the part-of-speech tag of atom i:
+\line 1 is "beginning of a sentence"
+\line 4 is "end of a sentence"
+\line 7 probably is a "Chinese char"
+\line 6 probably a "punctuation"
+\line 9 probably a "number string"
+\plain\par {\listtext\pard\plain\f1\fs20\lang1024 \'b7\tab}\ls1\ilvl0 \plain \f0\fs20 m_segGraph is a transition matrix. 
+\plain\par {\listtext\pard\plain\f1\fs20\lang1024 \'b7\tab}\ls1\ilvl0 \plain \f0\fs20 
+\plain\par \pard\fi0\li0\ql\ri0\sb0\sa0\itap0 \plain \f0\fs20 
+\par \pard\fi0\li0\ql\ri0\sb0\sa0\itap0 
+\par \pard\fi0\li0\ql\ri0\sb0\sa0\itap0 It is found that CResult::ParagraphProcessing(...) force the no. of result of Processing(..., 1) to be 1.
+\par \pard\fi0\li0\ql\ri0\sb0\sa0\itap0 
+\par \pard\fi0\li0\ql\ri0\sb0\sa0\itap0 \par}

@@ -1,0 +1,16 @@
+{\rtf1\ansi\ansicpg0\uc1\deff0\deflang0\deflangfe0{\fonttbl{\f0\fnil\fcharset1 Arial;}}{\colortbl;\red0\green0\blue0;\red0\green0\blue255;\red0\green255\blue255;\red0\green255\blue0;\red255\green0\blue255;\red255\green0\blue0;\red255\green255\blue0;\red255\green255\blue255;\red0\green0\blue128;\red0\green128\blue128;\red0\green128\blue0;\red128\green0\blue128;\red128\green0\blue0;\red128\green128\blue0;\red128\green128\blue128;\red192\green192\blue192;\red3\green126\blue226;\red43\green94\blue196;}
+
+\uc1
+\pard\fi0\li0\ql\ri0\sb0\sa0\itap0 \plain \f0\fs20 Finished converting the .dct and .ctx files. The whole PKU corpus (without tag) is used for testing. The outputs of ICTCLAS are the same under unix on sparc64 machine and under cygwin on intel P4 machine.
+\par \pard\fi0\li0\ql\ri0\sb0\sa0\itap0 
+\par \pard\fi0\li0\ql\ri0\sb0\sa0\itap0 The task now is to figure out how to recognize nested names, i.e. organization names and some location names. Because the free version of ICTCLAS seems haven't implemented that.
+\par \pard\fi0\li0\ql\ri0\sb0\sa0\itap0 
+\par \pard\fi0\li0\ql\ri0\sb0\sa0\itap0 Two possible solutions:
+\par \pard\fi0\li0\ql\ri0\sb0\sa0\itap0 1. Further process the ultimate output
+\par \pard\fi0\li0\ql\ri0\sb0\sa0\itap0 2. Modify the code (i.e. to insert one more component to recognize the nested names)
+\par \pard\fi0\li0\ql\ri0\sb0\sa0\itap0 
+\par \pard\fi0\li0\ql\ri0\sb0\sa0\itap0 The second method is harder, but in turn the NER process can be more effective (e.g. recognize the origin of the person name) and more efficient (since no need to do part-of-speech tagging).
+\par \pard\fi0\li0\ql\ri0\sb0\sa0\itap0 
+\par \pard\fi0\li0\ql\ri0\sb0\sa0\itap0 The first method may not be easy too.
+\par \pard\fi0\li0\ql\ri0\sb0\sa0\itap0 
+\par \pard\fi0\li0\ql\ri0\sb0\sa0\itap0 Further investigation is needed.}
