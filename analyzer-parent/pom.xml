@@ -9,8 +9,8 @@
 	<description>Chinese Word Segment</description>
 
 	<properties>
-		<lucene.version>4.6.0</lucene.version>
-		<solr.version>4.6.0</solr.version>
+		<lucene.version>4.7.0</lucene.version>
+		<solr.version>4.7.0</solr.version>
 		<!-- 其他组件版本号 -->
 		<log4j.version>1.2.17</log4j.version>
 		<slf4j.version>1.7.5</slf4j.version>
@@ -190,26 +190,27 @@
 		</pluginManagement>
 	</build>
 
+	<!-- 依赖包仓库 -->
 	<repositories>
-		<!-- 皮皮仓库 -->
+		<!-- 中新仓库 -->
 		<repository>
-			<id>ppcc-public</id>
+			<id>zxsoft-public</id>
 			<name>Nexus Release Repository</name>
-			<url>http://ops.pp.cc:3305/nexus/content/groups/public/</url>
+			<url>http://192.168.3.23:18081/nexus/content/groups/public/</url>
 		</repository>
 	</repositories>
 
 	<!-- 部署仓库 -->
 	<distributionManagement>
 		<repository>
-			<id>ppcc-releases</id>
+			<id>zxsoft-releases</id>
 			<name>Nexus Release Repository</name>
-			<url>http://60.169.74.45:3305/nexus/content/repositories/releases/</url>
+			<url>http://192.168.3.23:18081/nexus/content/repositories/releases/</url>
 		</repository>
 		<snapshotRepository>
-			<id>ppcc-snapshots</id>
+			<id>zxsoft-snapshots</id>
 			<name>Nexus Snapshot Repository</name>
-			<url>http://60.169.74.45:3305/nexus/content/repositories/snapshots/</url>
+			<url>http://192.168.3.23:18081/nexus/content/repositories/snapshots/</url>
 		</snapshotRepository>
 	</distributionManagement>
 
