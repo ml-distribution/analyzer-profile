@@ -16,6 +16,7 @@
 		<slf4j.version>1.7.5</slf4j.version>
 		<junit.version>4.11</junit.version>
 		<json.version>1.9.13</json.version>
+		<restlet.version>2.2.0</restlet.version>
 	</properties>
 
 	<dependencyManagement>
@@ -71,6 +72,52 @@
 				<groupId>org.codehaus.jackson</groupId>
 				<artifactId>jackson-mapper-asl</artifactId>
 				<version>${json.version}</version>
+			</dependency>
+			<!-- Restlet 相关 -->
+			<dependency>
+				<groupId>org.restlet.jse</groupId>
+				<artifactId>org.restlet</artifactId>
+				<version>${restlet.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.restlet.jse</groupId>
+				<artifactId>org.restlet.example</artifactId>
+				<version>${restlet.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.restlet.jse</groupId>
+				<artifactId>org.restlet.parent</artifactId>
+				<version>${restlet.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.restlet.jse</groupId>
+				<artifactId>org.restlet.test</artifactId>
+				<version>${restlet.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.restlet.jse</groupId>
+				<artifactId>org.restlet.ext.simple</artifactId>
+				<version>${restlet.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.restlet.jse</groupId>
+				<artifactId>org.restlet.ext.xml</artifactId>
+				<version>${restlet.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.restlet.jse</groupId>
+				<artifactId>org.restlet.ext.json</artifactId>
+				<version>${restlet.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.restlet.jse</groupId>
+				<artifactId>org.restlet.ext.jackson</artifactId>
+				<version>${restlet.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.restlet.jse</groupId>
+				<artifactId>org.restlet.ext.slf4j</artifactId>
+				<version>${restlet.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
