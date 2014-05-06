@@ -39,12 +39,12 @@
 
 ### 作者信息
 
-[新浪微博:皮皮数据挖掘](http://www.weibo.com/u/1862087393 "新浪微博")
+[新浪微博: 皮皮数据挖掘](http://www.weibo.com/u/1862087393 "新浪微博")
 
-[微信:wgybzb](https://github.com/wgybzbrobot "微信")
+[微信: wgybzb](https://github.com/wgybzbrobot "微信")
 
-[QQ:1010437118](https://github.com/wgybzbrobot "QQ")
+[QQ: 1010437118](https://github.com/wgybzbrobot "QQ")
 
-[邮箱:wgybzb@sina.cn](https://github.com/wgybzbrobot "邮箱")
+[邮箱: wgybzb@sina.cn](https://github.com/wgybzbrobot "邮箱")
 
-[GitHub:wgybzbrobot](https://github.com/wgybzbrobot "GitHub首页")
+[GitHub: wgybzbrobot](https://github.com/wgybzbrobot "GitHub首页")
