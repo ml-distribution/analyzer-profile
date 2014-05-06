@@ -80,9 +80,14 @@ web      |  接口服务
 
 ### 开发人员
 
-WeChat: wgybzb
+[新浪微博:皮皮数据挖掘](http://www.weibo.com/u/1862087393 "新浪微博")
 
-QQ: 1010437118
+[微信:wgybzb](https://github.com/wgybzbrobot "微信")
 
-E-mail: wgybzb@sina.cn
+[QQ:1010437118](https://github.com/wgybzbrobot "QQ")
+
+[邮箱:wgybzb@sina.cn](https://github.com/wgybzbrobot "邮箱")
+
+[GitHub:wgybzbrobot](https://github.com/wgybzbrobot "GitHub首页")
+
 
