@@ -20,7 +20,7 @@
     <header>
       <div class="inner">
         <h1>Analyzer-profile</h1>
-        <h2>多种分词器的封装，重点修改了原IK分词器和mmseg4j分词器，并适用于Lucene4.6、Solr4.6版本</h2>
+        <h2>多种分词器的封装，重点修改了原IK分词器和mmseg4j分词器，并适用于Lucene4.7、Solr4.7版本</h2>
         <a href="https://github.com/wgybzbrobot/analyzer-profile" class="button"><small>View project on</small>GitHub</a>
       </div>
     </header>
@@ -28,37 +28,124 @@
     <div id="content-wrapper">
       <div class="inner clearfix">
         <section id="main-content">
-          <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+          <h1>
+<a name="%E5%88%86%E8%AF%8D%E6%9C%8D%E5%8A%A1%E9%A1%B9%E7%9B%AE" class="anchor" href="#%E5%88%86%E8%AF%8D%E6%9C%8D%E5%8A%A1%E9%A1%B9%E7%9B%AE"><span class="octicon octicon-link"></span></a>分词服务项目</h1>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+<blockquote>
+<p>基于Java实现。</p>
+</blockquote>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
+<h2>
+<a name="%E9%A1%B9%E7%9B%AE%E5%86%85%E5%AE%B9" class="anchor" href="#%E9%A1%B9%E7%9B%AE%E5%86%85%E5%AE%B9"><span class="octicon octicon-link"></span></a>项目内容</h2>
+
+<ul>
+<li><a href="#%E9%A1%B9%E7%9B%AE%E7%AE%80%E4%BB%8B">项目简介</a></li>
+<li><a href="#%E9%A1%B9%E7%9B%AE%E6%9E%B6%E6%9E%84">项目架构</a></li>
+<li><a href="#%E5%BC%80%E5%8F%91%E4%BA%BA%E5%91%98">开发人员</a></li>
+</ul><hr><h2>
+<a name="%E9%A1%B9%E7%9B%AE%E7%AE%80%E4%BB%8B" class="anchor" href="#%E9%A1%B9%E7%9B%AE%E7%AE%80%E4%BB%8B"><span class="octicon octicon-link"></span></a>项目简介</h2>
+
+<h3>
+<a name="%E9%A1%B9%E7%9B%AE%E8%B5%B7%E5%9B%A0" class="anchor" href="#%E9%A1%B9%E7%9B%AE%E8%B5%B7%E5%9B%A0"><span class="octicon octicon-link"></span></a>项目起因</h3>
+
+<p>本项目主要为中文数据处理服务的。</p>
+
+<h3>
+<a name="%E9%A1%B9%E7%9B%AE%E6%A1%86%E6%9E%B6" class="anchor" href="#%E9%A1%B9%E7%9B%AE%E6%A1%86%E6%9E%B6"><span class="octicon octicon-link"></span></a>项目框架</h3>
+
+<p><code>analyzer-parent</code>: jar和插件依赖工程</p>
+
+<p><code>analyzer-ictclas4j</code>: 基于FreeICTCLAS的分词器</p>
+
+<p><code>analyzer-ik</code>: 模拟语义分词器</p>
+
+<p><code>analyzer-imdict</code>: 基于HMM算法的分词器</p>
+
+<p><code>analyzer-mmseg4j</code>: 基于MMSeg算法的分词器</p>
+
+<p><code>analyzer-paoding</code>: 庖丁分词器</p>
+
+<p><code>analyzer-smallseg</code>: 基于DFA的轻量级分词器</p>
+
+<p><code>analyzer-fudan</code>: 复旦大学的分词器</p>
+
+<p><code>analyzer-smartcn</code>: Lucene官方自带的分词器</p>
+
+<p><code>analyzer-testing</code>: 各分词器性能测试</p>
+
+<p><code>analyzer-web</code>: Restful风格的分词接口</p>
+
+<blockquote>
+<p><strong>备注:</strong> 该分词框架持续更新中。</p>
+</blockquote>
+
+<h3>
+<a name="api%E6%96%87%E6%A1%A3" class="anchor" href="#api%E6%96%87%E6%A1%A3"><span class="octicon octicon-link"></span></a>API文档</h3>
+
+<p><a href="http://wiki.dev.zx.soft/doku.php">http://wiki.dev.zx.soft/doku.php</a></p>
+
+<blockquote>
+<p><strong>备注:</strong> API文档统一放在公司的wiki上。</p>
+</blockquote>
+
+<hr><h2>
+<a name="%E9%A1%B9%E7%9B%AE%E6%9E%B6%E6%9E%84" class="anchor" href="#%E9%A1%B9%E7%9B%AE%E6%9E%B6%E6%9E%84"><span class="octicon octicon-link"></span></a>项目架构</h2>
+
+<ol>
+<li>对象池技术： commons-pool</li>
+<li>Restful风格的接口：restlet</li>
+<li>海量数据测评：mapreduce</li>
+</ol><h3>
+<a name="%E5%B8%B8%E8%A7%81%E7%BA%A6%E6%9D%9F%E8%AF%8D" class="anchor" href="#%E5%B8%B8%E8%A7%81%E7%BA%A6%E6%9D%9F%E8%AF%8D"><span class="octicon octicon-link"></span></a>常见约束词</h3>
+
+<table>
+<thead><tr>
+<th>Item</th>
+<th>Value</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>analyzer</td>
+<td>解析器</td>
+</tr>
+<tr>
+<td>wordsegment</td>
+<td>分词器</td>
+</tr>
+<tr>
+<td>testing</td>
+<td>测试模块</td>
+</tr>
+<tr>
+<td>web</td>
+<td>接口服务</td>
+</tr>
+</tbody>
+</table><h3>
+<a name="%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81" class="anchor" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="octicon octicon-link"></span></a>示例代码</h3>
+
+<pre><code>    ** 分词示例 **      
+
+
+    ** 嵌入Lucene示例 ** 
+
+
+    ** 嵌入Solr示例 ** 
+
 </code></pre>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
-
 <h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+<a name="%E4%BD%9C%E8%80%85%E4%BF%A1%E6%81%AF" class="anchor" href="#%E4%BD%9C%E8%80%85%E4%BF%A1%E6%81%AF"><span class="octicon octicon-link"></span></a>作者信息</h3>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+<p><a href="http://www.weibo.com/u/1862087393" title="新浪微博">新浪微博: 皮皮数据挖掘</a></p>
 
-<h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
+<p><a href="https://github.com/wgybzbrobot" title="微信">微信: wgybzb</a></p>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<p><a href="https://github.com/wgybzbrobot" title="QQ">QQ: 1010437118</a></p>
 
-<h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+<p><a href="https://github.com/wgybzbrobot" title="邮箱">邮箱: wgybzb@sina.cn</a></p>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
-<h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
+<p><a href="https://github.com/wgybzbrobot" title="GitHub首页">GitHub: wgybzbrobot</a></p>
         </section>
 
         <aside id="sidebar">
