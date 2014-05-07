@@ -23,7 +23,7 @@
  *
  *
  */
-package cc.pp.analyzer.ik.examples;
+package cc.pp.analyzer.ik.demo;
 
 import java.io.IOException;
 

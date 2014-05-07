@@ -1,6 +1,6 @@
 package cc.pp.analyzer.ik.driver;
 
-import cc.pp.analyzer.ik.examples.IKSegmenterTest;
+import cc.pp.analyzer.ik.demo.IKSegmenterTest;
 
 public class Driver {
 
