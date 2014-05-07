@@ -12,31 +12,36 @@
 	<artifactId>analyzer-paoding</artifactId>
 	<name>Analyzer PaoDing</name>
 
-	<properties>
-		<lucene.version>2.2.0</lucene.version>   <!-- 4.5.0 -->
-		<solr.version>3.6.1</solr.version>  <!-- 4.5.1 -->
-	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.lucene</groupId>
 			<artifactId>lucene-core</artifactId>
-			<version>${lucene.version}</version><!--$NO-MVN-MAN-VER$ -->
+			<version>2.2.0</version><!--$NO-MVN-MAN-VER$-->
 		</dependency>
 		<dependency>
 			<groupId>org.apache.lucene</groupId>
 			<artifactId>lucene-analyzers</artifactId>
-			<version>${lucene.version}</version>
+			<version>2.2.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.lucene</groupId>
 			<artifactId>lucene-highlighter</artifactId>
-			<version>${lucene.version}</version>
+			<version>2.2.0</version><!--$NO-MVN-MAN-VER$-->
 		</dependency>
 		<dependency>
 			<groupId>org.apache.solr</groupId>
 			<artifactId>solr-core</artifactId>
-			<version>${solr.version}</version><!--$NO-MVN-MAN-VER$ -->
+			<version>3.6.1</version><!--$NO-MVN-MAN-VER$-->
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.lucene</groupId>
+					<artifactId>lucene-spatial</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.lucene</groupId>
+					<artifactId>lucene-grouping</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>

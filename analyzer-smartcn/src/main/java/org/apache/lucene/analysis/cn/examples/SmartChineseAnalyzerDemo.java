@@ -14,7 +14,7 @@ public class SmartChineseAnalyzerDemo {
 	public static void main(String[] args) throws IOException {
 
 		final String text = "今天在淘宝的聚划算上买了一件衣服。";
-		Analyzer analyzer = new SmartChineseAnalyzer(Version.LUCENE_46, false);
+		Analyzer analyzer = new SmartChineseAnalyzer(Version.LUCENE_47, false);
 		TokenStream tokenStream = analyzer.tokenStream("myfiled", new StringReader(text));
 		CharTermAttribute charTermAttribute = tokenStream.addAttribute(CharTermAttribute.class);
 		try {

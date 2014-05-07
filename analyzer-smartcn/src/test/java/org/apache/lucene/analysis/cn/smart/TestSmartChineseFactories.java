@@ -29,10 +29,10 @@ import org.apache.lucene.analysis.TokenStream;
  * Tests for {@link SmartChineseSentenceTokenizerFactory} and
  * {@link SmartChineseWordTokenFilterFactory}
  */
-@SuppressWarnings("resource")
 public class TestSmartChineseFactories extends BaseTokenStreamTestCase {
 
 	/** Test showing the behavior with whitespace */
+	@SuppressWarnings("resource")
 	public void testSimple() throws Exception {
 		Reader reader = new StringReader("我购买了道具和服装。");
 		TokenStream stream = new MockTokenizer(reader, MockTokenizer.WHITESPACE, false);
