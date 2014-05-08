@@ -38,6 +38,7 @@ import org.apache.lucene.analysis.cn.smart.Utility;
 class WordDictionary extends AbstractDictionary {
 
 	private WordDictionary() {
+		//
 	}
 
 	private static WordDictionary singleInstance;

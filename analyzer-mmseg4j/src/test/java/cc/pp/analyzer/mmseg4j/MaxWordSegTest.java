@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import cc.pp.analyzer.mmseg4j.examples.MaxWord;
+import cc.pp.analyzer.mmseg4j.demo.MaxWord;
 
 public class MaxWordSegTest {
 

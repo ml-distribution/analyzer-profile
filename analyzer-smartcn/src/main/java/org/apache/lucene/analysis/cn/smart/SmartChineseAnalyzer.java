@@ -19,6 +19,7 @@ package org.apache.lucene.analysis.cn.smart;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.nio.charset.StandardCharsets;
 import java.util.Set;
 
 import org.apache.lucene.analysis.Analyzer;
@@ -38,11 +39,11 @@ import org.apache.lucene.util.Version;
  * The text is first broken into sentences, then each sentence is segmented into words.
  * </p>
  * <p>
- * Segmentation is based upon the <a href="http://en.wikipedia.org/wiki/Hidden_Markov_Model">Hidden Markov Model</a>.
+ * Segmentation is based upon the <a href="http://en.wikipedia.org/wiki/Hidden_Markov_Model">Hidden Markov Model</a>. 
  * A large training corpus was used to calculate Chinese word frequency probability.
  * </p>
  * <p>
- * This analyzer requires a dictionary to provide statistical data.
+ * This analyzer requires a dictionary to provide statistical data. 
  * SmartChineseAnalyzer has an included dictionary out-of-box.
  * </p>
  * <p>
@@ -68,11 +69,11 @@ public final class SmartChineseAnalyzer extends Analyzer {
 	}
 
 	/**
-	 * Atomically loads the DEFAULT_STOP_SET in a lazy fashion once the outer class
+	 * Atomically loads the DEFAULT_STOP_SET in a lazy fashion once the outer class 
 	 * accesses the static final set the first time.;
 	 */
-	private static class DefaultSetHolder {
-		static final CharArraySet DEFAULT_STOP_SET;
+	public static class DefaultSetHolder {
+		public static final CharArraySet DEFAULT_STOP_SET;
 
 		static {
 			try {
@@ -86,9 +87,9 @@ public final class SmartChineseAnalyzer extends Analyzer {
 
 		static CharArraySet loadDefaultStopWordSet() throws IOException {
 			// make sure it is unmodifiable as we expose it in the outer class
-			return CharArraySet
-					.unmodifiableSet(WordlistLoader.getWordSet(IOUtils.getDecodingReader(SmartChineseAnalyzer.class,
-							DEFAULT_STOPWORD_FILE, IOUtils.CHARSET_UTF_8), STOPWORD_FILE_COMMENT, Version.LUCENE_47));
+			return CharArraySet.unmodifiableSet(WordlistLoader.getWordSet(IOUtils.getDecodingReader(
+					SmartChineseAnalyzer.class, DEFAULT_STOPWORD_FILE, StandardCharsets.UTF_8), STOPWORD_FILE_COMMENT,
+					Version.LUCENE_48));
 		}
 	}
 
@@ -109,7 +110,7 @@ public final class SmartChineseAnalyzer extends Analyzer {
 	 * The included default stopword list is simply a list of punctuation.
 	 * If you do not use this list, punctuation will not be removed from the text!
 	 * </p>
-	 *
+	 * 
 	 * @param useDefaultStopWords true to use the default stopword list.
 	 */
 	public SmartChineseAnalyzer(Version matchVersion, boolean useDefaultStopWords) {
@@ -131,10 +132,18 @@ public final class SmartChineseAnalyzer extends Analyzer {
 		this.matchVersion = matchVersion;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public TokenStreamComponents createComponents(String fieldName, Reader reader) {
-		Tokenizer tokenizer = new SentenceTokenizer(reader);
-		TokenStream result = new WordTokenFilter(tokenizer);
+		final Tokenizer tokenizer;
+		TokenStream result;
+		if (matchVersion.onOrAfter(Version.LUCENE_48)) {
+			tokenizer = new HMMChineseTokenizer(reader);
+			result = tokenizer;
+		} else {
+			tokenizer = new HMMChineseTokenizer(reader);
+			result = new WordTokenFilter(tokenizer);
+		}
 		// result = new LowerCaseFilter(result);
 		// LowerCaseFilter is not needed, as SegTokenFilter lowercases Basic Latin text.
 		// The porter stemming is too strict, this is not a bug, this is a feature:)

@@ -1,4 +1,4 @@
-package cc.pp.analyzer.imdict.examples;
+package cc.pp.analyzer.imdict.demo;
 
 import java.io.IOException;
 import java.io.StringReader;

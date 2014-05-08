@@ -1,5 +1,3 @@
-package org.apache.lucene.analysis.cn.smart;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -17,30 +15,36 @@ package org.apache.lucene.analysis.cn.smart;
  * limitations under the License.
  */
 
+package org.apache.lucene.analysis.cn.smart;
+
 import java.io.Reader;
 import java.util.Map;
 
+import org.apache.lucene.analysis.Tokenizer;
 import org.apache.lucene.analysis.util.TokenizerFactory;
 import org.apache.lucene.util.AttributeSource.AttributeFactory;
 
 /**
- * Factory for the SmartChineseAnalyzer {@link SentenceTokenizer}
+ * Factory for {@link HMMChineseTokenizer}
+ * <p>
+ * Note: this class will currently emit tokens for punctuation. So you should either add
+ * a WordDelimiterFilter after to remove these (with concatenate off), or use the 
+ * SmartChinese stoplist with a StopFilterFactory via:
+ * <code>words="org/apache/lucene/analysis/cn/smart/stopwords.txt"</code>
  * @lucene.experimental
- * @deprecated Use {@link HMMChineseTokenizerFactory} instead
  */
-@Deprecated
-public class SmartChineseSentenceTokenizerFactory extends TokenizerFactory {
-  
-  /** Creates a new SmartChineseSentenceTokenizerFactory */
-  public SmartChineseSentenceTokenizerFactory(Map<String,String> args) {
+public final class HMMChineseTokenizerFactory extends TokenizerFactory {
+
+  /** Creates a new HMMChineseTokenizerFactory */
+  public HMMChineseTokenizerFactory(Map<String,String> args) {
     super(args);
     if (!args.isEmpty()) {
       throw new IllegalArgumentException("Unknown parameters: " + args);
     }
   }
-  
+
   @Override
-  public SentenceTokenizer create(AttributeFactory factory, Reader input) {
-    return new SentenceTokenizer(factory, input);
+  public Tokenizer create(AttributeFactory factory, Reader reader) {
+    return new HMMChineseTokenizer(factory, reader);
   }
 }

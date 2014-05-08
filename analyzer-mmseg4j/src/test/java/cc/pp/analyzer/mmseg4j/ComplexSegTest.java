@@ -6,7 +6,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import cc.pp.analyzer.mmseg4j.examples.Complex;
+import cc.pp.analyzer.mmseg4j.demo.Complex;
 
 public class ComplexSegTest {
 

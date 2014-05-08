@@ -3,6 +3,7 @@ package org.ictclas4j.bean;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 
 public class WordResult {
+
 	private String word;
 
 	private int handle;
@@ -32,6 +33,8 @@ public class WordResult {
 	public void setWord(String word) {
 		this.word = word;
 	}
+
+	@Override
 	public String toString() {
 
 		return ReflectionToStringBuilder.toString(this);

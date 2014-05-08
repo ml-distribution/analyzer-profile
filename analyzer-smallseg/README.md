@@ -1,12 +1,28 @@
-smallseg -- 开源的的轻量级的中文分词工具包
+## SmallSeg
 
-特点：可自定义词典、速度快、可在Google App Engine上运行。
+### 分词器说明
 
-分词效果在线演示：
+[smallseg]()开源的的轻量级的中文分词工具包。
+
+`分词效果在线演示`:
 
 https://smallseg.appspot.com/smallseg
 
-友情链接：结巴分词 https://github.com/fxsjy/jieba
+友情链接：[结巴分词](https://github.com/fxsjy/jieba)
+
+### 分词器特性
+
+1. 可自定义词典、速度快、可在Google App Engine上运行。
+
+### 项目配置
+
+**停用词**
+
+
+**扩展词**
+
+
+### 项目使用
 
 例子：
 
@@ -163,4 +179,16 @@ Dict is OK.
 98 times, cost: 0.422000169754
 99 times, cost: 0.436999797821
 100 times, cost: 0.438000202179
-********************************
+------
+
+### 作者信息
+
+[新浪微博: 皮皮数据挖掘](http://www.weibo.com/u/1862087393 "新浪微博")
+
+[微信: wgybzb](https://github.com/wgybzbrobot "微信")
+
+[QQ: 1010437118](https://github.com/wgybzbrobot "QQ")
+
+[邮箱: wgybzb@sina.cn](https://github.com/wgybzbrobot "邮箱")
+
+[GitHub: wgybzbrobot](https://github.com/wgybzbrobot "GitHub首页")

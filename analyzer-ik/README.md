@@ -24,11 +24,17 @@
 
 ### 项目配置
 
-**停用词**
+**默认停用词**
 
+`stopword.dic`以及`stopword_*.dic`文件。
 
-**扩展词**
+**默认扩展词**
 
+`ext.dic`文件。
+
+**外部文件**
+
+ik_dic下面的ext_ik.dic和stopwords_ik.dic文件。
 
 ### 项目使用
 

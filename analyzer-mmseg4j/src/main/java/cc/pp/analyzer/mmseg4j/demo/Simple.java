@@ -1,4 +1,4 @@
-package cc.pp.analyzer.mmseg4j.examples;
+package cc.pp.analyzer.mmseg4j.demo;
 
 import java.io.IOException;
 

@@ -8,7 +8,6 @@ import org.apache.lucene.util.Version;
 
 import cc.pp.analyzer.ik.lucene.IKAnalyzer;
 
-
 /**
  * IKAnalyzer 分词器测试
  * Lucene 3.5
@@ -19,7 +18,7 @@ public class IKAnalyzerWSTest {
 	public static void main(String[] args) throws Exception {
 
 		String data = "今天在淘宝的聚划算上买了一件衣服。";
-		IKAnalyzer analyzer = new IKAnalyzer(Version.LUCENE_47);
+		IKAnalyzer analyzer = new IKAnalyzer(Version.LUCENE_48);
 		//使用智能分词
 		analyzer.setUseSmart(true);
 		//打印分词结果

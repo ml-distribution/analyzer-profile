@@ -36,7 +36,7 @@ public class WordSegmenter {
 
 	/**
 	 * Segment a sentence into words with {@link HHMMSegmenter}
-	 *
+	 * 
 	 * @param sentence input sentence
 	 * @param startOffset start offset of sentence
 	 * @return {@link List} of {@link SegToken}
@@ -58,9 +58,9 @@ public class WordSegmenter {
 
 	/**
 	 * Process a {@link SegToken} so that it is ready for indexing.
-	 *
+	 * 
 	 * This method calculates offsets and normalizes the token with {@link SegTokenFilter}.
-	 *
+	 * 
 	 * @param st input {@link SegToken}
 	 * @param sentence associated Sentence
 	 * @param sentenceStartOffset offset into sentence
@@ -84,4 +84,5 @@ public class WordSegmenter {
 		st.endOffset += sentenceStartOffset;
 		return st;
 	}
+
 }

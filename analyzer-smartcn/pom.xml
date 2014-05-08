@@ -13,10 +13,6 @@
 	<name>Analyzer Smartcn</name>
 	<description>Smart Chinese Analyzer with Lucene </description>
 
-	<properties>
-		<lucene.version>4.7.0</lucene.version>
-	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>log4j</groupId>

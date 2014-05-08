@@ -1,4 +1,4 @@
-package org.ictclas4j.run;
+package org.ictclas4j.demo;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;

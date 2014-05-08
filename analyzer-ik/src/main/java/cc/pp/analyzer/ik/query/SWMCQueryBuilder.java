@@ -53,14 +53,14 @@ public class SWMCQueryBuilder {
 	 * @param quickMode
 	 * @return Lucene Query
 	 */
-	public static Query create(String fieldName ,String keywords , boolean quickMode){
-		if(fieldName == null || keywords == null){
+	public static Query create(String fieldName, String keywords, boolean quickMode) {
+		if (fieldName == null || keywords == null) {
 			throw new IllegalArgumentException("参数 fieldName 、 keywords 不能为null.");
 		}
 		//1.对keywords进行分词处理
 		List<Lexeme> lexemes = doAnalyze(keywords);
 		//2.根据分词结果，生成SWMCQuery
-		Query _SWMCQuery = getSWMCQuery(fieldName , lexemes , quickMode);
+		Query _SWMCQuery = getSWMCQuery(fieldName, lexemes, quickMode);
 		return _SWMCQuery;
 	}
 
@@ -69,20 +69,19 @@ public class SWMCQueryBuilder {
 	 * @param keywords
 	 * @return
 	 */
-	private static List<Lexeme> doAnalyze(String keywords){
+	private static List<Lexeme> doAnalyze(String keywords) {
 		List<Lexeme> lexemes = new ArrayList<Lexeme>();
-		IKSegmenter ikSeg = new IKSegmenter(new StringReader(keywords) , true);
-		try{
+		IKSegmenter ikSeg = new IKSegmenter(new StringReader(keywords), true);
+		try {
 			Lexeme l = null;
-			while( (l = ikSeg.next()) != null){
+			while ((l = ikSeg.next()) != null) {
 				lexemes.add(l);
 			}
-		}catch(IOException e){
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return lexemes;
 	}
-
 
 	/**
 	 * 根据分词结果生成SWMC搜索
@@ -91,7 +90,7 @@ public class SWMCQueryBuilder {
 	 * @param quickMode
 	 * @return
 	 */
-	private static Query getSWMCQuery(String fieldName , List<Lexeme> lexemes , boolean quickMode){
+	private static Query getSWMCQuery(String fieldName, List<Lexeme> lexemes, boolean quickMode) {
 		//构造SWMC的查询表达式
 		StringBuffer keywordBuffer = new StringBuffer();
 		//精简的SWMC的查询表达式
@@ -103,20 +102,19 @@ public class SWMCQueryBuilder {
 
 		int shortCount = 0;
 		int totalCount = 0;
-		for(Lexeme l : lexemes){
+		for (Lexeme l : lexemes) {
 			totalCount += l.getLength();
 			//精简表达式
-			if(l.getLength() > 1){
+			if (l.getLength() > 1) {
 				keywordBuffer_Short.append(' ').append(l.getLexemeText());
 				shortCount += l.getLength();
 			}
 
-			if(lastLexemeLength == 0){
+			if (lastLexemeLength == 0) {
 				keywordBuffer.append(l.getLexemeText());
-			}else if(lastLexemeLength == 1 && l.getLength() == 1
-					&& lastLexemeEnd == l.getBeginPosition()){//单字位置相邻，长度为一，合并)
+			} else if (lastLexemeLength == 1 && l.getLength() == 1 && lastLexemeEnd == l.getBeginPosition()) {//单字位置相邻，长度为一，合并)
 				keywordBuffer.append(l.getLexemeText());
-			}else{
+			} else {
 				keywordBuffer.append(' ').append(l.getLexemeText());
 
 			}
@@ -125,11 +123,11 @@ public class SWMCQueryBuilder {
 		}
 
 		//借助lucene queryparser 生成SWMC Query
-		QueryParser qp = new QueryParser(Version.LUCENE_47, fieldName, new StandardAnalyzer(Version.LUCENE_47));
+		QueryParser qp = new QueryParser(Version.LUCENE_48, fieldName, new StandardAnalyzer(Version.LUCENE_48));
 		qp.setDefaultOperator(QueryParser.AND_OPERATOR);
 		qp.setAutoGeneratePhraseQueries(true);
 
-		if(quickMode && (shortCount * 1.0f / totalCount) > 0.5f){
+		if (quickMode && (shortCount * 1.0f / totalCount) > 0.5f) {
 			try {
 				//System.out.println(keywordBuffer.toString());
 				Query q = qp.parse(keywordBuffer_Short.toString());
@@ -138,8 +136,8 @@ public class SWMCQueryBuilder {
 				e.printStackTrace();
 			}
 
-		}else{
-			if(keywordBuffer.length() > 0){
+		} else {
+			if (keywordBuffer.length() > 0) {
 				try {
 					//System.out.println(keywordBuffer.toString());
 					Query q = qp.parse(keywordBuffer.toString());

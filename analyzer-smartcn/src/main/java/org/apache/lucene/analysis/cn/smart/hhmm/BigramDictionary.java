@@ -46,7 +46,7 @@ class BigramDictionary extends AbstractDictionary {
 	public static final int PRIME_BIGRAM_LENGTH = 402137;
 
 	/*
-	 * The word associations are stored as FNV1 hashcodes, which have a small probability of collision, but save memory.
+	 * The word associations are stored as FNV1 hashcodes, which have a small probability of collision, but save memory.  
 	 */
 	private long[] bigramHashTable;
 
@@ -134,7 +134,7 @@ class BigramDictionary extends AbstractDictionary {
 
 	/**
 	 * Load the datafile into this BigramDictionary
-	 *
+	 * 
 	 * @param dctFilePath path to the Bigramdictionary (bigramdict.dct)
 	 * @throws IOException If there is a low-level I/O error
 	 */
@@ -142,7 +142,7 @@ class BigramDictionary extends AbstractDictionary {
 	public void loadFromFile(String dctFilePath) throws IOException {
 
 		int i, cnt, length, total = 0;
-		// The file only counted 6763 Chinese characters plus 5 reserved slots 3756~3760.
+		// The file only counted 6763 Chinese characters plus 5 reserved slots 3756~3760.  
 		// The 3756th is used (as a header) to store information.
 		int[] buffer = new int[3];
 		byte[] intBuffer = new byte[4];
