@@ -30,7 +30,8 @@ public class WordExtractFudanDemo {
 		//		System.out.println(time2 - time1);
 		//		System.out.println(time3 - time2);
 		//		System.out.println(time4 - time3);
-		System.out.println(keyword.extractKeyword("我在淘宝网的聚划算上买了一件衣服。", "", 20));
+		System.out.println(keyword.extractMap("我在淘宝网的聚划算上买了一件衣服。", "", 20));
+		System.out.println(keyword.extractList("我在淘宝网的聚划算上买了一件衣服。", "", 20));
 
 	}
 

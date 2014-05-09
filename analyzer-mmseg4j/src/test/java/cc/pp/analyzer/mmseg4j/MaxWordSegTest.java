@@ -7,14 +7,14 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import cc.pp.analyzer.mmseg4j.demo.MaxWord;
+import cc.pp.analyzer.mmseg4j.demo.MaxWordDemo;
 
 public class MaxWordSegTest {
 
-	MaxWord segW;
+	MaxWordDemo segW;
 	@Before
 	public void setUp() throws Exception {
-		segW = new MaxWord();
+		segW = new MaxWordDemo();
 	}
 
 	@Test

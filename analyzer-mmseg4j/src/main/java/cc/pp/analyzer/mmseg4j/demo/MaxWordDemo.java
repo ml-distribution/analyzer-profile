@@ -5,14 +5,14 @@ import java.io.IOException;
 import cc.pp.analyzer.mmseg4j.MaxWordSeg;
 import cc.pp.analyzer.mmseg4j.Seg;
 
-public class MaxWord extends Complex {
+public class MaxWordDemo extends ComplexDemo {
 
+	@Override
 	protected Seg getSeg() {
-
 		return new MaxWordSeg(dic);
 	}
 
 	public static void main(String[] args) throws IOException {
-		new MaxWord().run(args);
+		new MaxWordDemo().run(args);
 	}
 }

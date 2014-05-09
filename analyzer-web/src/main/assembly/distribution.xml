@@ -12,7 +12,6 @@
 		<fileSet>
 			<directory>src/main/resources</directory>
 			<includes>
-				<include>solr_params.properties</include>
 				<include>web-server.properties</include>
 			</includes>
 			<outputDirectory>/conf</outputDirectory>

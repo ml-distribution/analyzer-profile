@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mainClass=zx.soft.sent.web.driver.SentWebDriver
+mainClass=cc.pp.analyzer.web.driver.AnalyzerWebDriver
 
 # resolve links - $0 may be a softlink
 PRG="$0"

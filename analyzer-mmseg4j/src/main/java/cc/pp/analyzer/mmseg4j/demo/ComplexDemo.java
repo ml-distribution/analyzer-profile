@@ -12,11 +12,11 @@ import cc.pp.analyzer.mmseg4j.MMSeg;
 import cc.pp.analyzer.mmseg4j.Seg;
 import cc.pp.analyzer.mmseg4j.Word;
 
-public class Complex {
+public class ComplexDemo {
 
 	protected Dictionary dic;
 
-	public Complex() {
+	public ComplexDemo() {
 		dic = Dictionary.getInstance();
 	}
 
@@ -79,7 +79,7 @@ public class Complex {
 
 	public static void main(String[] args) throws IOException {
 
-		new Complex().run(args);
+		new ComplexDemo().run(args);
 	}
 
 }

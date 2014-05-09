@@ -6,14 +6,14 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import cc.pp.analyzer.mmseg4j.demo.Complex;
+import cc.pp.analyzer.mmseg4j.demo.ComplexDemo;
 
 public class ComplexSegTest {
 
-	Complex segW;
+	ComplexDemo segW;
 	@Before
 	public void setUp() throws Exception {
-		segW = new Complex();
+		segW = new ComplexDemo();
 		//ComplexSeg.setShowChunk(true);
 	}
 

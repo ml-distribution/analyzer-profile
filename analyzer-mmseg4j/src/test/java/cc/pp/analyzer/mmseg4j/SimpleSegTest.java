@@ -6,15 +6,15 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import cc.pp.analyzer.mmseg4j.demo.Simple;
+import cc.pp.analyzer.mmseg4j.demo.SimpleDemo;
 
 public class SimpleSegTest {
 
-	Simple segW;
+	SimpleDemo segW;
 
 	@Before
 	public void setUp() throws Exception {
-		segW = new Simple();
+		segW = new SimpleDemo();
 	}
 
 	@Test

@@ -1,9 +1,9 @@
 package cc.pp.analyzer.fudan.core;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
-
-import cc.pp.analyzer.fudan.utils.JsonUtils;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 复旦关键词提取器主类
@@ -38,22 +38,33 @@ public class WordExtractFudan {
 	/**
 	 * @return 关键词集和Json数据结果
 	 */
-	public String extractKeyword(String str, String wordCharacter, int keywordNum) {
-		LinkedHashMap<String, Integer> temp = new LinkedHashMap<>();
+	public Map<String, Integer> extractMap(String str, String wordCharacter, int keywordNum) {
+		Map<String, Integer> result = new HashMap<>();
 		if ((str == "") || (keywordNum == 0)) {
-			temp = null;
+			result = null;
 		} else if (wordCharacter == "") {
-			temp = (LinkedHashMap<String, Integer>) key.extract(str, keywordNum);
+			result = key.extract(str, keywordNum);
 		} else {
-			temp = (LinkedHashMap<String, Integer>) key.extract(str, wordCharacter, keywordNum);
+			result = key.extract(str, wordCharacter, keywordNum);
 		}
-		if (temp != null) {
-			HashMap<String, String> keyword = new HashMap<>();
-			int i = 0;
-			for (String key : temp.keySet()) {
-				keyword.put(Integer.toString(i++), key);
+		return result;
+	}
+
+	public List<String> extractList(String str, String wordCharacter, int keywordNum) {
+		Map<String, Integer> result = new HashMap<>();
+		if ((str == "") || (keywordNum == 0)) {
+			result = null;
+		} else if (wordCharacter == "") {
+			result = key.extract(str, keywordNum);
+		} else {
+			result = key.extract(str, wordCharacter, keywordNum);
+		}
+		if (result != null) {
+			List<String> keyword = new ArrayList<>();
+			for (String key : result.keySet()) {
+				keyword.add(key);
 			}
-			return JsonUtils.toJson(keyword);
+			return keyword;
 		} else {
 			return null;
 		}

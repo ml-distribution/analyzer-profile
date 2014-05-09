@@ -3,18 +3,51 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>zx.soft</groupId>
-		<artifactId>sentiment-parent</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
+		<groupId>cc.pp.study</groupId>
+		<artifactId>analyzer-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../analyzer-parent/pom.xml</relativePath>
 	</parent>
 
-	<groupId>cc.pp</groupId>
 	<artifactId>analyzer-web</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<name>Analyzer Web</name>
 
 	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>analyzer-ictclas4j</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>analyzer-ik</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>analyzer-imdict</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>analyzer-mmseg4j</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>analyzer-paoding</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>analyzer-smallseg</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>analyzer-fudan</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.restlet.jse</groupId>
 			<artifactId>org.restlet</artifactId>
@@ -35,6 +68,26 @@
 		<dependency>
 			<groupId>javax.inject</groupId>
 			<artifactId>javax.inject</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-core-asl</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -67,7 +120,6 @@
 				<version>2.4</version>
 				<configuration>
 					<excludes>
-						<exclude>solr_params.properties</exclude>
 						<exclude>web-server.properties</exclude>
 					</excludes>
 				</configuration>

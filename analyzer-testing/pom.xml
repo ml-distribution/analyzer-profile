@@ -13,45 +13,41 @@
 	<name>Analyzer Testing</name>
 	<description>Testing all of these Analyzers</description>
 
-	<properties>
-		<analyzer.version>${project.version}</analyzer.version>
-	</properties>
-
 	<dependencies>
 		<dependency>
-			<groupId>cc.pp.study</groupId>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>analyzer-ictclas4j</artifactId>
-			<version>${analyzer.version}</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>cc.pp.study</groupId>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>analyzer-ik</artifactId>
-			<version>${analyzer.version}</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>cc.pp.study</groupId>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>analyzer-imdict</artifactId>
-			<version>${analyzer.version}</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>cc.pp.study</groupId>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>analyzer-mmseg4j</artifactId>
-			<version>${analyzer.version}</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>cc.pp.study</groupId>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>analyzer-paoding</artifactId>
-			<version>${analyzer.version}</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>cc.pp.study</groupId>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>analyzer-smallseg</artifactId>
-			<version>${analyzer.version}</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>cc.pp.study</groupId>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>analyzer-fudan</artifactId>
-			<version>${analyzer.version}</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
