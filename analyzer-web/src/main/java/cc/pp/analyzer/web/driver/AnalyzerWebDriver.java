@@ -3,6 +3,8 @@ package cc.pp.analyzer.web.driver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import cc.pp.analyzer.web.server.AnalyzerServer;
+
 /**
  * 驱动类
  *
@@ -24,8 +26,9 @@ public class AnalyzerWebDriver {
 		System.arraycopy(args, 1, leftArgs, 0, leftArgs.length);
 
 		switch (args[0]) {
-		case "sentimentIndexServer":
+		case "analyzerServer":
 			logger.info("索引接口： ");
+			AnalyzerServer.main(leftArgs);
 			break;
 		default:
 			return;

@@ -1,5 +1,8 @@
 package cc.pp.analyzer.web.resource;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+
 import org.restlet.resource.Get;
 import org.restlet.resource.ServerResource;
 import org.slf4j.Logger;
@@ -18,8 +21,6 @@ public class AnalyzerResource extends ServerResource {
 	private String type;
 	private String text;
 
-	// /analyzer/{analyzer}/type/{type}/text/{text}
-
 	@Override
 	public void doInit() {
 		application = (AnalyzerApplication) getApplication();
@@ -34,7 +35,13 @@ public class AnalyzerResource extends ServerResource {
 				|| text == null) {
 			return new ErrorResponse.Builder(-1, "params error");
 		}
-		logger.info("Request Url=" + getReference());
+		try {
+			text = URLDecoder.decode(text, "utf-8");
+			logger.info("Request Url=" + URLDecoder.decode(getReference().toString(), "utf-8"));
+			logger.info("{params: [analyzer=" + analyzer + ",type=" + type + ",text=" + text + "]");
+		} catch (UnsupportedEncodingException e) {
+			//
+		}
 		if ("fudan".equalsIgnoreCase(analyzer)) {
 			return application.getFudanKeywords(text);
 		} else if ("ik".equalsIgnoreCase(analyzer)) {

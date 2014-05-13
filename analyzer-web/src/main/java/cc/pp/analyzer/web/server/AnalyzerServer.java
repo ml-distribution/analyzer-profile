@@ -13,7 +13,7 @@ import cc.pp.analyzer.web.jackson.ReplaceConvert;
  * @author wanggang
  *
  * 搜索示例：
- * http://localhost:8901/analyzer/{fudan,ik,mmseg4j}/type/{0,1,2}/text/{text that should be analyzed.}
+ * http://localhost:9900/analyzer/{fudan,ik,mmseg4j}/type/{0,1,2}/text/{text that should be analyzed.}
  *
  */
 public class AnalyzerServer {

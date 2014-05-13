@@ -33,6 +33,8 @@ public class WordExtractFudanDemo {
 		System.out.println(keyword.extractMap("我在淘宝网的聚划算上买了一件衣服。", "", 20));
 		System.out.println(keyword.extractList("我在淘宝网的聚划算上买了一件衣服。", "", 20));
 
+		System.out.println(keyword.extractList("这是需要分词的语句，淘宝特卖，中华名国", "", 20));
+
 	}
 
 }

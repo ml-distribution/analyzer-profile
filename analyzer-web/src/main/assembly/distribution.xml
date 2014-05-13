@@ -25,6 +25,27 @@
 			<outputDirectory>/bin</outputDirectory>
 			<fileMode>0755</fileMode>
 		</fileSet>
+		<fileSet>
+			<directory>ik_dic</directory>
+			<includes>
+				<include>*</include>
+			</includes>
+			<outputDirectory>/ik_dic</outputDirectory>
+		</fileSet>
+		<fileSet>
+			<directory>models</directory>
+			<includes>
+				<include>*</include>
+			</includes>
+			<outputDirectory>/models</outputDirectory>
+		</fileSet>
+		<fileSet>
+			<directory>models/stopwords</directory>
+			<includes>
+				<include>*</include>
+			</includes>
+			<outputDirectory>/models/stopwords</outputDirectory>
+		</fileSet>
 	</fileSets>
 	<dependencySets>
 		<dependencySet>

@@ -22,6 +22,16 @@
 			<groupId>${project.groupId}</groupId>
 			<artifactId>analyzer-ik</artifactId>
 			<version>${project.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.restlet.jee</groupId>
+					<artifactId>org.restlet</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.restlet.jee</groupId>
+					<artifactId>org.restlet.ext.servlet</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
@@ -32,6 +42,16 @@
 			<groupId>${project.groupId}</groupId>
 			<artifactId>analyzer-mmseg4j</artifactId>
 			<version>${project.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.restlet.jee</groupId>
+					<artifactId>org.restlet</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.restlet.jee</groupId>
+					<artifactId>org.restlet.ext.servlet</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
@@ -47,6 +67,16 @@
 			<groupId>${project.groupId}</groupId>
 			<artifactId>analyzer-fudan</artifactId>
 			<version>${project.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.restlet.jee</groupId>
+					<artifactId>org.restlet</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.restlet.jee</groupId>
+					<artifactId>org.restlet.ext.servlet</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.restlet.jse</groupId>
@@ -109,6 +139,9 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
+				<configuration>
+					<encoding>UTF-8</encoding>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -121,12 +154,15 @@
 				<configuration>
 					<excludes>
 						<exclude>web-server.properties</exclude>
+						<exclude>ik_dic</exclude>
+						<exclude>models</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<configuration>
+					<encoding>UTF-8</encoding>
 					<descriptors>
 						<descriptor>src/main/assembly/distribution.xml</descriptor>
 					</descriptors>
@@ -147,7 +183,7 @@
 			</plugin>
 		</plugins>
 
-		<finalName>sentiment-web</finalName>
+		<finalName>analyzer-web</finalName>
 
 	</build>
 
