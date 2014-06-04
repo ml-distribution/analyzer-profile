@@ -312,15 +312,18 @@
 	<!-- 依赖包仓库 -->
 	<repositories>
 		<!-- 中新仓库 -->
+		<!--  
 		<repository>
 			<id>zxsoft-public</id>
 			<name>Nexus Release Repository</name>
 			<url>http://192.168.3.23:18081/nexus/content/groups/public/</url>
 		</repository>
+		-->
 	</repositories>
 
 	<!-- 部署仓库 -->
 	<distributionManagement>
+	    <!--  
 		<repository>
 			<id>zxsoft-releases</id>
 			<name>Nexus Release Repository</name>
@@ -331,6 +334,7 @@
 			<name>Nexus Snapshot Repository</name>
 			<url>http://192.168.3.23:18081/nexus/content/repositories/snapshots/</url>
 		</snapshotRepository>
+		-->
 	</distributionManagement>
 
 </project>
