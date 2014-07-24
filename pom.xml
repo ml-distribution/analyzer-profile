@@ -19,6 +19,7 @@
 		<module>analyzer-smallseg</module>
 		<module>analyzer-fudan</module>
 		<module>analyzer-smartcn</module>
+		<module>analyzer-ansj</module>
 		<module>analyzer-testing</module>
 		<module>analyzer-web</module>
 	</modules>
