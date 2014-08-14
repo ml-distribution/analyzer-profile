@@ -40,11 +40,6 @@ public class AnalyzerCore {
 		mmseg4jAnalyzer = new MMSeg4jWordSeg();
 	}
 
-	public static void main(String[] args) {
-		AnalyzerCore analyzerCore = new AnalyzerCore();
-		analyzerCore.close();
-	}
-
 	/**
 	 * MMSeg4j分词器
 	 * @param str  待分词字符串
