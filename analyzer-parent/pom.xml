@@ -310,21 +310,6 @@
 			</plugins>
 		</pluginManagement>
 
-		<!-- 指定项目资源打包，并过滤变量 -->
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-				<includes>
-					<include>*</include>
-				</includes>
-			</resource>
-		</resources>
-		<testResources>
-			<testResource>
-				<directory>src/test/resources</directory>
-			</testResource>
-		</testResources>
-
 		<finalName>${project.artifactId}-${project.version}</finalName>
 		
 	</build>

@@ -28,9 +28,9 @@ public class Dictionary {
 
 	private static final Logger log = Logger.getLogger(Dictionary.class.getName());
 
-	private File dicPath;	//词库目录
+	private File dicPath; //词库目录
 	private volatile Map<Character, CharNode> dict;
-	private volatile Map<Character, Object> unit;	//单个字的单位
+	private volatile Map<Character, Object> unit; //单个字的单位
 
 	/** 记录 word 文件的最后修改时间 */
 	private Map<File, Long> wordsLastTime = null;
@@ -40,6 +40,7 @@ public class Dictionary {
 	private static File defalutPath = null;
 	private static final ConcurrentHashMap<File, Dictionary> dics = new ConcurrentHashMap<File, Dictionary>();
 
+	@Override
 	protected void finalize() throws Throwable {
 		/*
 		 * 使 class reload 的时也可以释放词库
@@ -73,10 +74,10 @@ public class Dictionary {
 	 * @param path 词典的目录
 	 */
 	public static Dictionary getInstance(File path) {
-		log.info("try to load dir="+path);
+		log.info("try to load dir=" + path);
 		File normalizeDir = normalizeFile(path);
 		Dictionary dic = dics.get(normalizeDir);
-		if(dic == null) {
+		if (dic == null) {
 			dic = new Dictionary(normalizeDir);
 			dics.put(normalizeDir, dic);
 		}
@@ -84,13 +85,13 @@ public class Dictionary {
 	}
 
 	public static File normalizeFile(File file) {
-		if(file == defalutPath) {
+		if (file == defalutPath) {
 			return defalutPath;
 		}
 		try {
 			return file.getCanonicalFile();
 		} catch (IOException e) {
-			throw new RuntimeException("normalize file=["+file+"] fail", e);
+			throw new RuntimeException("normalize file=[" + file + "] fail", e);
 		}
 	}
 
@@ -133,7 +134,7 @@ public class Dictionary {
 		dicPath = path;
 		wordsLastTime = new HashMap<File, Long>();
 
-		reload();	//加载词典
+		reload(); //加载词典
 	}
 
 	private static long now() {
@@ -147,6 +148,7 @@ public class Dictionary {
 	protected File[] listWordsFiles() {
 		return dicPath.listFiles(new FilenameFilter() {
 
+			@Override
 			public boolean accept(File dir, String name) {
 
 				return name.startsWith("words") && name.endsWith(".dic");
@@ -158,57 +160,58 @@ public class Dictionary {
 	private Map<Character, CharNode> loadDic(File wordsPath) throws IOException {
 		InputStream charsIn = null;
 		File charsFile = new File(wordsPath, "chars.dic");
-		if(charsFile.exists()) {
+		if (charsFile.exists()) {
 			charsIn = new FileInputStream(charsFile);
-			addLastTime(charsFile);	//chars.dic 也检测是否变更
-		} else {	//从 jar 里加载
+			addLastTime(charsFile); //chars.dic 也检测是否变更
+		} else { //从 jar 里加载
 			charsIn = this.getClass().getResourceAsStream("/data/chars.dic");
-			charsFile = new File(this.getClass().getResource("/data/chars.dic").getFile());	//only for log
+			charsFile = new File(this.getClass().getResource("/data/chars.dic").getFile()); //only for log
 		}
 		final Map<Character, CharNode> dic = new HashMap<Character, CharNode>();
 		int lineNum = 0;
 		long s = now();
 		long ss = s;
-		lineNum = load(charsIn, new FileLoading() {	//单个字的
+		lineNum = load(charsIn, new FileLoading() { //单个字的
 
-			public void row(String line, int n) {
-				if(line.length() < 1) {
-					return;
-				}
-				String[] w = line.split(" ");
-				CharNode cn = new CharNode();
-				switch(w.length) {
-				case 2:
-					try {
-						cn.setFreq((int)(Math.log(Integer.parseInt(w[1]))*100));//字频计算出自由度
-					} catch(NumberFormatException e) {
-						//eat...
+					@Override
+					public void row(String line, int n) {
+						if (line.length() < 1) {
+							return;
+						}
+						String[] w = line.split(" ");
+						CharNode cn = new CharNode();
+						switch (w.length) {
+						case 2:
+							try {
+								cn.setFreq((int) (Math.log(Integer.parseInt(w[1])) * 100));//字频计算出自由度
+							} catch (NumberFormatException e) {
+								//eat...
+							}
+						case 1:
+
+							dic.put(w[0].charAt(0), cn);
+						}
 					}
-				case 1:
-
-					dic.put(w[0].charAt(0), cn);
-				}
-			}
-		});
-		log.info("chars loaded time="+(now()-s)+"ms, line="+lineNum+", on file="+charsFile);
+				});
+		log.info("chars loaded time=" + (now() - s) + "ms, line=" + lineNum + ", on file=" + charsFile);
 
 		//try load words.dic in jar
 		InputStream wordsDicIn = this.getClass().getResourceAsStream("/data/words.dic");
-		if(wordsDicIn != null) {
+		if (wordsDicIn != null) {
 			File wordsDic = new File(this.getClass().getResource("/data/words.dic").getFile());
 			loadWord(wordsDicIn, dic, wordsDic);
 		}
 
-		File[] words = listWordsFiles();	//只要 wordsXXX.dic的文件
-		if(words != null) {	//扩展词库目录
-			for(File wordsFile : words) {
+		File[] words = listWordsFiles(); //只要 wordsXXX.dic的文件
+		if (words != null) { //扩展词库目录
+			for (File wordsFile : words) {
 				loadWord(new FileInputStream(wordsFile), dic, wordsFile);
 
-				addLastTime(wordsFile);	//用于检测是否修改
+				addLastTime(wordsFile); //用于检测是否修改
 			}
 		}
 
-		log.info("load all dic use time="+(now()-ss)+"ms");
+		log.info("load all dic use time=" + (now() - ss) + "ms");
 		return dic;
 	}
 
@@ -221,16 +224,16 @@ public class Dictionary {
 	private void loadWord(InputStream is, Map<Character, CharNode> dic, File wordsFile) throws IOException {
 		long s = now();
 		int lineNum = load(is, new WordsFileLoading(dic)); //正常的词库
-		log.info("words loaded time="+(now()-s)+"ms, line="+lineNum+", on file="+wordsFile);
+		log.info("words loaded time=" + (now() - s) + "ms, line=" + lineNum + ", on file=" + wordsFile);
 	}
 
 	private Map<Character, Object> loadUnit(File path) throws IOException {
 		InputStream fin = null;
 		File unitFile = new File(path, "units.dic");
-		if(unitFile.exists()) {
+		if (unitFile.exists()) {
 			fin = new FileInputStream(unitFile);
 			addLastTime(unitFile);
-		} else {	//在jar包里的/data/unit.dic
+		} else { //在jar包里的/data/unit.dic
 			fin = Dictionary.class.getResourceAsStream("/data/units.dic");
 			unitFile = new File(Dictionary.class.getResource("/data/units.dic").getFile());
 		}
@@ -240,14 +243,15 @@ public class Dictionary {
 		long s = now();
 		int lineNum = load(fin, new FileLoading() {
 
+			@Override
 			public void row(String line, int n) {
-				if(line.length() != 1) {
+				if (line.length() != 1) {
 					return;
 				}
 				unit.put(line.charAt(0), Dictionary.class);
 			}
 		});
-		log.info("unit loaded time="+(now()-s)+"ms, line="+lineNum+", on file="+unitFile);
+		log.info("unit loaded time=" + (now() - s) + "ms, line=" + lineNum + ", on file=" + unitFile);
 
 		return unit;
 	}
@@ -267,12 +271,13 @@ public class Dictionary {
 			this.dic = dic;
 		}
 
+		@Override
 		public void row(String line, int n) {
-			if(line.length() < 2) {
+			if (line.length() < 2) {
 				return;
 			}
 			CharNode cn = dic.get(line.charAt(0));
-			if(cn == null) {
+			if (cn == null) {
 				cn = new CharNode();
 				dic.put(line.charAt(0), cn);
 			}
@@ -285,12 +290,11 @@ public class Dictionary {
 	 * @return 文件总行数
 	 */
 	public static int load(InputStream fin, FileLoading loading) throws IOException {
-		BufferedReader br = new BufferedReader(
-				new InputStreamReader(new BufferedInputStream(fin), "UTF-8"));
+		BufferedReader br = new BufferedReader(new InputStreamReader(new BufferedInputStream(fin), "UTF-8"));
 		String line = null;
 		int n = 0;
-		while((line = br.readLine()) != null) {
-			if(line == null || line.startsWith("#")) {
+		while ((line = br.readLine()) != null) {
+			if (line == null || line.startsWith("#")) {
 				continue;
 			}
 			n++;
@@ -304,7 +308,7 @@ public class Dictionary {
 	 * @author chenlb 2009-3-3 下午10:05:26
 	 */
 	private static char[] tail(String str) {
-		char[] cs = new char[str.length()-1];
+		char[] cs = new char[str.length() - 1];
 		str.getChars(1, str.length(), cs, 0);
 		return cs;
 	}
@@ -323,7 +327,7 @@ public class Dictionary {
 	 * @param wordsFile 非 null
 	 */
 	private synchronized void addLastTime(File wordsFile) {
-		if(wordsFile != null) {
+		if (wordsFile != null) {
 			wordsLastTime.put(wordsFile, wordsFile.lastModified());
 		}
 	}
@@ -334,20 +338,20 @@ public class Dictionary {
 	 */
 	public synchronized boolean wordsFileIsChange() {
 		//检查是否有修改文件,包括删除的
-		for(Entry<File, Long> flt : wordsLastTime.entrySet()) {
+		for (Entry<File, Long> flt : wordsLastTime.entrySet()) {
 			File words = flt.getKey();
-			if(!words.canRead()) {	//可能是删除了
+			if (!words.canRead()) { //可能是删除了
 				return true;
 			}
-			if(words.lastModified() > flt.getValue()) {	//更新了文件
+			if (words.lastModified() > flt.getValue()) { //更新了文件
 				return true;
 			}
 		}
 		//检查是否有新文件
 		File[] words = listWordsFiles();
-		if(words != null) {
-			for(File wordsFile : words) {
-				if(!wordsLastTime.containsKey(wordsFile)) {	//有新词典文件
+		if (words != null) {
+			for (File wordsFile : words) {
+				if (!wordsLastTime.containsKey(wordsFile)) { //有新词典文件
 					return true;
 				}
 			}
@@ -376,8 +380,8 @@ public class Dictionary {
 			dict = oldDict;
 			unit = oldUnit;
 
-			if(log.isLoggable(Level.WARNING)) {
-				log.log(Level.WARNING, "reload dic error! dic="+dicPath+", and rollbacked.", e);
+			if (log.isLoggable(Level.WARNING)) {
+				log.log(Level.WARNING, "reload dic error! dic=" + dicPath + ", and rollbacked.", e);
 			}
 
 			return false;
@@ -390,11 +394,11 @@ public class Dictionary {
 	 * @author chenlb 2009-3-3 下午11:10:45
 	 */
 	public boolean match(String word) {
-		if(word == null || word.length() < 2) {
+		if (word == null || word.length() < 2) {
 			return false;
 		}
 		CharNode cn = dict.get(word.charAt(0));
-		return search(cn, word.toCharArray(), 0, word.length()-1) >= 0;
+		return search(cn, word.toCharArray(), 0, word.length() - 1) >= 0;
 	}
 
 	public CharNode head(char ch) {
@@ -407,7 +411,7 @@ public class Dictionary {
 	 * @author chenlb 2009-4-8 下午11:13:49
 	 */
 	public int search(CharNode node, char[] sen, int offset, int tailLen) {
-		if(node != null) {
+		if (node != null) {
 			return node.indexOf(sen, offset, tailLen);
 		}
 		return -1;
@@ -419,8 +423,8 @@ public class Dictionary {
 	}
 
 	public int maxMatch(CharNode node, char[] sen, int offset) {
-		if(node != null) {
-			return node.maxMatch(sen, offset+1);
+		if (node != null) {
+			return node.maxMatch(sen, offset + 1);
 		}
 		return 0;
 	}
@@ -428,8 +432,8 @@ public class Dictionary {
 	public ArrayList<Integer> maxMatch(CharNode node, ArrayList<Integer> tailLens, char[] sen, int offset) {
 		tailLens.clear();
 		tailLens.add(0);
-		if(node != null) {
-			return node.maxMatch(tailLens, sen, offset+1);
+		if (node != null) {
+			return node.maxMatch(tailLens, sen, offset + 1);
 		}
 		return tailLens;
 	}
@@ -442,24 +446,24 @@ public class Dictionary {
 	 * 当 words.dic 是从 jar 里加载时, 可能 defalut 不存在
 	 */
 	public static File getDefalutPath() {
-		if(defalutPath == null) {
+		if (defalutPath == null) {
 			String defPath = System.getProperty("mmseg.dic.path");
-			log.info("look up in mmseg.dic.path="+defPath);
-			if(defPath == null) {
+			log.info("look up in mmseg.dic.path=" + defPath);
+			if (defPath == null) {
 				URL url = Dictionary.class.getClassLoader().getResource("data");
-				if(url != null) {
+				if (url != null) {
 					defPath = url.getFile();
-					log.info("look up in classpath="+defPath);
+					log.info("look up in classpath=" + defPath);
 				} else {
-					defPath = System.getProperty("user.dir")+"/data";
-					log.info("look up in user.dir="+defPath);
+					defPath = System.getProperty("user.dir") + "/data";
+					log.info("look up in user.dir=" + defPath);
 				}
 
 			}
 
 			defalutPath = new File(defPath);
-			if(!defalutPath.exists()) {
-				log.warning("defalut dic path="+defalutPath+" not exist");
+			if (!defalutPath.exists()) {
+				log.warning("defalut dic path=" + defalutPath + " not exist");
 			}
 		}
 		return defalutPath;
