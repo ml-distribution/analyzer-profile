@@ -49,13 +49,6 @@
 		</dependency>
 	</dependencies>
 
-	<distributionManagement>
-		<repository>
-			<id>mvn-repo</id>
-			<url>scpexe://ansj/home/mvn-repo/ROOT</url>
-		</repository>
-	</distributionManagement>
-
 	<repositories>
 		<repository>
 			<id>mvn-repo</id>
