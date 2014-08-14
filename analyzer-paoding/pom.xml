@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>cc.pp.study</groupId>
 		<artifactId>analyzer-parent</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>1.0.0</version>
 		<relativePath>../analyzer-parent/pom.xml</relativePath>
 	</parent>
 
@@ -64,7 +64,6 @@
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
 		</dependency>
-
 	</dependencies>
 
 	<build>
@@ -123,6 +122,9 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		
+		<finalName>${project.artifactId}-${project.version}</finalName>
+		
 	</build>
 
 </project>

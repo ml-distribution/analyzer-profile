@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>cc.pp.study</groupId>
 		<artifactId>analyzer-parent</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>1.0.0</version>
 		<relativePath>../analyzer-parent/pom.xml</relativePath>
 	</parent>
 
@@ -104,7 +104,7 @@
 				<goal>sign</goal> </goals> </execution> </executions> </plugin> -->
 		</plugins>
 		
-		<finalName>analyzer-mmseg4j</finalName>
+		<finalName>${project.artifactId}-${project.version}</finalName>
 		
 	</build>
 

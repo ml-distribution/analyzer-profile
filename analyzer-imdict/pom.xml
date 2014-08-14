@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>cc.pp.study</groupId>
 		<artifactId>analyzer-parent</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>1.0.0</version>
 		<relativePath>../analyzer-parent/pom.xml</relativePath>
 	</parent>
 
@@ -21,7 +21,7 @@
 		<dependency>
 			<groupId>org.apache.lucene</groupId>
 			<artifactId>lucene-core</artifactId>
-			<version>${lucene.version}</version><!--$NO-MVN-MAN-VER$-->
+			<version>${lucene.version}</version><!--$NO-MVN-MAN-VER$ -->
 		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
@@ -103,6 +103,9 @@
 				</configuration>
 			</plugin>
 		</plugins>
+
+		<finalName>${project.artifactId}-${project.version}</finalName>
+
 	</build>
 
 </project>
