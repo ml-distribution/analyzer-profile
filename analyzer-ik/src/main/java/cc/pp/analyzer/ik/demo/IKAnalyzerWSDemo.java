@@ -13,7 +13,7 @@ import cc.pp.analyzer.ik.lucene.IKAnalyzer;
  * Lucene 3.5
  * @author WG
  */
-public class IKAnalyzerWSTest {
+public class IKAnalyzerWSDemo {
 
 	public static void main(String[] args) throws Exception {
 

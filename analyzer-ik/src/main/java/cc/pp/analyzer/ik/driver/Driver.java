@@ -1,6 +1,6 @@
 package cc.pp.analyzer.ik.driver;
 
-import cc.pp.analyzer.ik.demo.IKSegmenterTest;
+import cc.pp.analyzer.ik.demo.IKSegmenterDemo;
 
 public class Driver {
 
@@ -15,8 +15,8 @@ public class Driver {
 		}
 
 		switch (args[0]) {
-		case "IKSegmenterTest":
-			IKSegmenterTest.main(getLeftParams(args));
+		case "IKSegmenterDemo":
+			IKSegmenterDemo.main(getLeftParams(args));
 			break;
 		default:
 			return;

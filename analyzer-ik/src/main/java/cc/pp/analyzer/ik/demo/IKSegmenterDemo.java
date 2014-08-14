@@ -6,7 +6,7 @@ import java.io.StringReader;
 import cc.pp.analyzer.ik.core.IKSegmenter;
 import cc.pp.analyzer.ik.core.Lexeme;
 
-public class IKSegmenterTest {
+public class IKSegmenterDemo {
 
 	public static void main(String[] args) {
 
