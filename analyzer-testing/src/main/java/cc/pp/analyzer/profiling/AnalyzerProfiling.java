@@ -11,7 +11,7 @@ public class AnalyzerProfiling {
 	public static void main(String[] args) throws IOException {
 
 		String testData = TestingData.WEIBO_TEXT;
-//		String bigTestData = TestingData.bigTestData("big_test_data.txt");
+		//		String bigTestData = TestingData.bigTestData("big_test_data.txt");
 		//		String veryBigTestData = TestingData.bigTestData("very_big_test_data.txt");
 		System.err.println("待分词的数据为： ");
 		System.out.println(testData);
@@ -33,7 +33,7 @@ public class AnalyzerProfiling {
 	}
 
 	public static void analyzer_Imdict(String data) {
-
+		//
 	}
 
 }
