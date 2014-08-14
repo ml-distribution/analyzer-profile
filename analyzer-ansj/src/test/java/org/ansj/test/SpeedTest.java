@@ -2,6 +2,7 @@ package org.ansj.test;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,9 @@ public class SpeedTest {
 	@Test
 	public void basicTest() throws IOException {
 		ToAnalysis.parse("test---aaaa中国孙健测试");
-		BufferedReader reader = IOUtil.getReader("/Users/ansj/Documents/temp/test.txt", IOUtil.UTF8);
+		//		BufferedReader reader = IOUtil.getReader("lianchengjue.txt", IOUtil.UTF8);
+		InputStream in = this.getClass().getClassLoader().getResourceAsStream("lianchengjue.txt");
+		BufferedReader reader = IOUtil.getReader(in, IOUtil.UTF8);
 
 		String temp = null;
 
@@ -46,7 +49,7 @@ public class SpeedTest {
 		}
 
 		long end = System.currentTimeMillis();
-		System.out.println(start - end);
+		System.out.println("Tackling time: " + (end - start) + "ms");
 		System.out.println("共 " + allCount + " 个字符，每秒处理了:" + (allCount * 1000.0 / (end - start)));
 	}
 
