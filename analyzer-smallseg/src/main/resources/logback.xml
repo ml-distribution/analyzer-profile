@@ -16,7 +16,7 @@
 
 	<appender name="FILE"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<File>logs/sentiment-core.log</File>
+		<File>logs/analyzer-smallseg.log</File>
 		<encoder>
 			<pattern>%d{ISO8601} [%thread] %-5level %logger{36} [Line:%-3L] - %msg%n</pattern>
 		</encoder>
@@ -25,7 +25,7 @@
 			<level>INFO</level>
 		</filter>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>logs/sentiment-core.log.%d{yyyy-MM-dd}.tar.gz
+			<fileNamePattern>logs/analyzer-smallseg.log.%d{yyyy-MM-dd}.tar.gz
 			</fileNamePattern>
 			<maxHistory>30</maxHistory>
 		</rollingPolicy>
