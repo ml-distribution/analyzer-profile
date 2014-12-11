@@ -3,10 +3,10 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>cc.pp.study</groupId>
-		<artifactId>analyzer-parent</artifactId>
-		<version>1.0.0</version>
-		<relativePath>../analyzer-parent/pom.xml</relativePath>
+		<groupId>zx.soft</groupId>
+		<artifactId>analyzer-profile</artifactId>
+		<version>2.0.0</version>
+		<relativePath>../pom.xml</relativePath>
 	</parent>
 
 	<artifactId>analyzer-imdict</artifactId>
@@ -24,57 +24,18 @@
 			<version>${lucene.version}</version><!--$NO-MVN-MAN-VER$ -->
 		</dependency>
 		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>commons-logging</groupId>
-			<artifactId>commons-logging</artifactId>
-		</dependency>
-
 	</dependencies>
 
 	<build>
 		<plugins>
-			<!-- 编译 -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-			</plugin>
-			<!-- 源码 -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<goals>
-							<goal>jar-no-fork</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<!-- 资源编码 -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-resources-plugin</artifactId>
-				<configuration>
-					<encoding>UTF-8</encoding>
-				</configuration>
-			</plugin>
 			<!-- jar包依赖 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

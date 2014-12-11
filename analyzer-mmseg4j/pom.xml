@@ -3,16 +3,30 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>cc.pp.study</groupId>
-		<artifactId>analyzer-parent</artifactId>
-		<version>1.0.0</version>
-		<relativePath>../analyzer-parent/pom.xml</relativePath>
+		<groupId>zx.soft</groupId>
+		<artifactId>analyzer-profile</artifactId>
+		<version>2.0.0</version>
+		<relativePath>../pom.xml</relativePath>
 	</parent>
 
 	<artifactId>analyzer-mmseg4j</artifactId>
 	<name>Analyzer Mmseg4j</name>
 
 	<dependencies>
+		<dependency>
+			<groupId>org.apache.solr</groupId>
+			<artifactId>solr-core</artifactId> <!-- 4.3.1 -->
+			<exclusions>
+				<exclusion>
+					<groupId>com.googlecode.concurrentlinkedhashmap</groupId>
+					<artifactId>concurrentlinkedhashmap-lru</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>joda-time</groupId>
+					<artifactId>joda-time</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 		<dependency>
 			<groupId>org.apache.lucene</groupId>
 			<artifactId>lucene-core</artifactId>  <!-- 4.3.1 -->
@@ -22,56 +36,18 @@
 			<artifactId>lucene-queryparser</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.apache.solr</groupId>
-			<artifactId>solr-core</artifactId> <!-- 4.3.1 -->
-		</dependency>
 	</dependencies>
 
 	<build>
 		<plugins>
-			<!-- 编译 -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-			</plugin>
-			<!-- 源码 -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<goals>
-							<goal>jar-no-fork</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<!-- 资源编码 -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-resources-plugin</artifactId>
-				<configuration>
-					<encoding>UTF-8</encoding>
-				</configuration>
-			</plugin>
 			<!-- jar包依赖 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -103,9 +79,9 @@
 				<executions> <execution> <id>sign-artifacts</id> <phase>verify</phase> <goals> 
 				<goal>sign</goal> </goals> </execution> </executions> </plugin> -->
 		</plugins>
-		
+
 		<finalName>${project.artifactId}-${project.version}</finalName>
-		
+
 	</build>
 
 </project>

@@ -5,11 +5,11 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
-import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
 import org.ictclas4j.bean.SegResult;
 import org.ictclas4j.segment.Segment;
 import org.ictclas4j.utility.GFString;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Copyright 2007.6.1 张新波（sinboy）
@@ -30,13 +30,12 @@ import org.ictclas4j.utility.GFString;
 
 public class SegMain {
 
+	private static Logger logger = LoggerFactory.getLogger(Segment.class);
+
 	public static Segment seg;
 
-	static Logger logger = Logger.getLogger(SegMain.class);
-
 	public SegMain() {
-		PropertyConfigurator.configure(Config.LOG4J_CONF);
-
+		//		
 	}
 
 	public static void main(String[] args) {

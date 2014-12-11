@@ -10,13 +10,16 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import org.apache.log4j.Logger;
 import org.ictclas4j.utility.GFCommon;
 import org.ictclas4j.utility.GFString;
 import org.ictclas4j.utility.Utility;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Dictionary {
+
+	private static Logger logger = LoggerFactory.getLogger(Dictionary.class);
+
 	/**
 	 * 词典表,共6768个,GB2312编码
 	 */
@@ -26,8 +29,6 @@ public class Dictionary {
 	 * 词典修改表
 	 */
 	public ArrayList<ModifyTable> mts;
-
-	static Logger logger = Logger.getLogger(Dictionary.class);
 
 	public Dictionary() {
 		init();
@@ -119,9 +120,9 @@ public class Dictionary {
 
 			in.close();
 		} catch (FileNotFoundException e) {
-			logger.error(e);
+			logger.error("FileNotFoundException:{}", e);
 		} catch (IOException e) {
-			logger.error(e);
+			logger.error("IOException:{}", e);
 		}
 		return true;
 	}
@@ -229,9 +230,9 @@ public class Dictionary {
 			}
 			out.close();
 		} catch (FileNotFoundException e) {
-			logger.error(e);
+			logger.error("FileNotFoundException:{}", e);
 		} catch (IOException e) {
-			logger.error(e);
+			logger.error("IOException:{}", e);
 		}
 		return true;
 	}

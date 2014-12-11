@@ -2,7 +2,6 @@ package org.ictclas4j.segment;
 
 import java.util.ArrayList;
 
-import org.apache.log4j.Logger;
 import org.ictclas4j.bean.Atom;
 import org.ictclas4j.bean.Dictionary;
 import org.ictclas4j.bean.MidResult;
@@ -12,9 +11,12 @@ import org.ictclas4j.bean.Sentence;
 import org.ictclas4j.utility.DebugUtil;
 import org.ictclas4j.utility.POSTag;
 import org.ictclas4j.utility.Utility;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Segment {
+
+	private static Logger logger = LoggerFactory.getLogger(Segment.class);
 
 	private final Dictionary coreDict;
 
@@ -29,8 +31,6 @@ public class Segment {
 	private final PosTagger lexTagger;
 
 	private int segPathCount = 1;// 分词路径的数目
-
-	static Logger logger = Logger.getLogger(Segment.class);
 
 	public Segment(int segPathCount) {
 
@@ -63,8 +63,8 @@ public class Segment {
 			ArrayList<Sentence> sens = ss.getSens();
 
 			for (Sentence sen : sens) {
-				logger.debug(sen);
-				long start=System.currentTimeMillis();
+				logger.debug("Sentence:{}", sen);
+				long start = System.currentTimeMillis();
 				MidResult mr = new MidResult();
 				mr.setIndex(index++);
 				mr.setSource(sen.getContent());
@@ -74,8 +74,8 @@ public class Segment {
 					AtomSeg as = new AtomSeg(sen.getContent());
 					ArrayList<Atom> atoms = as.getAtoms();
 					mr.setAtoms(atoms);
-					System.err.println("[atom time]:"+(System.currentTimeMillis()-start));
-					start=System.currentTimeMillis();
+					System.err.println("[atom time]:" + (System.currentTimeMillis() - start));
+					start = System.currentTimeMillis();
 
 					// 生成分词图表,先进行初步分词，然后进行优化，最后进行词性标记
 					SegGraph segGraph = GraphGenerate.generate(atoms, coreDict);
@@ -83,15 +83,15 @@ public class Segment {
 					// 生成二叉分词图表
 					SegGraph biSegGraph = GraphGenerate.biGenerate(segGraph, coreDict, bigramDict);
 					mr.setBiSegGraph(biSegGraph.getSnList());
-					System.err.println("[graph time]:"+(System.currentTimeMillis()-start));
-					start=System.currentTimeMillis();
+					System.err.println("[graph time]:" + (System.currentTimeMillis() - start));
+					start = System.currentTimeMillis();
 
 					// 求N最短路径
 					NShortPath nsp = new NShortPath(biSegGraph, segPathCount);
 					ArrayList<ArrayList<Integer>> bipath = nsp.getPaths();
 					mr.setBipath(bipath);
-					System.err.println("[NSP time]:"+(System.currentTimeMillis()-start));
-					start=System.currentTimeMillis();
+					System.err.println("[NSP time]:" + (System.currentTimeMillis() - start));
+					start = System.currentTimeMillis();
 
 					for (ArrayList<Integer> onePath : bipath) {
 						// 得到初次分词路径
@@ -99,8 +99,8 @@ public class Segment {
 						ArrayList<SegNode> firstPath = AdjustSeg.firstAdjust(segPath);
 						String firstResult = outputResult(firstPath);
 						mr.addFirstResult(firstResult);
-						System.err.println("[first time]:"+(System.currentTimeMillis()-start));
-						start=System.currentTimeMillis();
+						System.err.println("[first time]:" + (System.currentTimeMillis() - start));
+						start = System.currentTimeMillis();
 
 						// 处理未登陆词，进对初次分词结果进行优化
 						SegGraph optSegGraph = new SegGraph(firstPath);
@@ -109,8 +109,8 @@ public class Segment {
 						transPersonTagger.recognition(optSegGraph, sns);
 						placeTagger.recognition(optSegGraph, sns);
 						mr.setOptSegGraph(optSegGraph.getSnList());
-						System.err.println("[unknown time]:"+(System.currentTimeMillis()-start));
-						start=System.currentTimeMillis();
+						System.err.println("[unknown time]:" + (System.currentTimeMillis() - start));
+						start = System.currentTimeMillis();
 
 						// 根据优化后的结果，重新进行生成二叉分词图表
 						SegGraph optBiSegGraph = GraphGenerate.biGenerate(optSegGraph, coreDict, bigramDict);
@@ -130,8 +130,8 @@ public class Segment {
 							mr.addOptResult(optResult);
 							adjResult = AdjustSeg.finaAdjust(optSegPath, personTagger, placeTagger);
 							String adjrs = outputResult(adjResult);
-							System.err.println("[last time]:"+(System.currentTimeMillis()-start));
-							start=System.currentTimeMillis();
+							System.err.println("[last time]:" + (System.currentTimeMillis() - start));
+							start = System.currentTimeMillis();
 							if (midResult == null)
 								midResult = adjrs;
 							break;
@@ -181,7 +181,7 @@ public class Segment {
 	// 根据分词路径生成分词结果
 	private String outputResult(ArrayList<SegNode> wrList) {
 		String result = null;
-		String temp=null;
+		String temp = null;
 		char[] pos = new char[2];
 		if (wrList != null && wrList.size() > 0) {
 			result = "";
@@ -191,9 +191,9 @@ public class Segment {
 					int tag = Math.abs(sn.getPos());
 					pos[0] = (char) (tag / 256);
 					pos[1] = (char) (tag % 256);
-					temp=""+pos[0];
-					if(pos[1]>0)
-						temp+=""+pos[1];
+					temp = "" + pos[0];
+					if (pos[1] > 0)
+						temp += "" + pos[1];
 					result += sn.getSrcWord() + "/" + temp + " ";
 				}
 			}

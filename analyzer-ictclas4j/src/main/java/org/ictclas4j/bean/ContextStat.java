@@ -7,21 +7,22 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import org.apache.log4j.Logger;
 import org.ictclas4j.utility.GFCommon;
 import org.ictclas4j.utility.Utility;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ContextStat {
+
+	private static Logger logger = LoggerFactory.getLogger(ContextStat.class);
+
 	private int tableLen;
 
 	private int[] symbolTable;
 
-	private ArrayList<TagContext> tcList;
+	private final ArrayList<TagContext> tcList;
 
-	static Logger logger = Logger.getLogger(ContextStat.class);
-
-	public ContextStat() { 
+	public ContextStat() {
 		tcList = new ArrayList<TagContext>();
 	}
 
@@ -99,9 +100,9 @@ public class ContextStat {
 			}
 			in.close();
 		} catch (FileNotFoundException e) {
-			logger.debug(e);
+			logger.debug("FileNotFoundException:{}", e);
 		} catch (IOException e) {
-			logger.debug(e);
+			logger.debug("IOException:{}", e);
 		}
 		return true;
 	}
@@ -132,38 +133,38 @@ public class ContextStat {
 		TagContext tc = getItem(key);
 
 		// return a lower value, not 0 to prevent data sparse
-		if (tc == null || curIndex == -1 || prevIndex == -1
-				|| tc.getContextArray()[prevIndex][curIndex] == 0
+		if (tc == null || curIndex == -1 || prevIndex == -1 || tc.getContextArray()[prevIndex][curIndex] == 0
 				|| tc.getTagFreq()[prevIndex] == 0)
 			return 0.000001;
-		
+
 		int prevCurConFreq = tc.getContextArray()[prevIndex][curIndex];
 		int prevFreq = tc.getTagFreq()[prevIndex];
 
 		// 0.9 and 0.1 is a value based experience
-		result = 0.9 * (double) prevCurConFreq;
-		result /= (double) prevFreq;
-		result += 0.1 * (double) prevFreq / (double) tc.getTotalFreq();
+		result = 0.9 * prevCurConFreq;
+		result /= prevFreq;
+		result += 0.1 * prevFreq / tc.getTotalFreq();
 
 		return result;
 	}
 
 	public TagContext getItem(int key) {
-		TagContext result = null; 
-		
-		if(tcList==null||tcList.size()==0)
+		TagContext result = null;
+
+		if (tcList == null || tcList.size() == 0)
 			return null;
-		if (key == 0  )
+		if (key == 0)
 			result = tcList.get(0);
-		else   {
-			int i=0;
-			for ( ; i < tcList.size() && tcList.get(i).getKey()<key; i++);
-			if(i<tcList.size() && tcList.get(i).getKey()==key)
-				result=tcList.get(i);
-			else if(i-1<tcList.size())
-				result=tcList.get(i-1);
+		else {
+			int i = 0;
+			for (; i < tcList.size() && tcList.get(i).getKey() < key; i++)
+				;
+			if (i < tcList.size() && tcList.get(i).getKey() == key)
+				result = tcList.get(i);
+			else if (i - 1 < tcList.size())
+				result = tcList.get(i - 1);
 		}
-		
+
 		return result;
 	}
 

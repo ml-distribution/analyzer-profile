@@ -2,12 +2,12 @@ package org.ictclas4j.segment;
 
 import java.util.ArrayList;
 
-import org.apache.log4j.Logger;
 import org.ictclas4j.bean.Queue;
 import org.ictclas4j.bean.QueueNode;
 import org.ictclas4j.bean.SegNode;
 import org.ictclas4j.utility.Utility;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * N-最短路径
@@ -16,6 +16,8 @@ import org.ictclas4j.utility.Utility;
  * @since 2007.5.17 updated
  */
 public class NShortPath {
+
+	private static Logger logger = LoggerFactory.getLogger(NShortPath.class);
 
 	// 最短路径的数目
 	private int pathCount;
@@ -31,8 +33,6 @@ public class NShortPath {
 
 	// 分词图表中顶点个数
 	private int vertex;
-
-	Logger logger = Logger.getLogger(NShortPath.class);
 
 	public NShortPath(SegGraph bsg, int pathCount) {
 
