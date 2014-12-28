@@ -27,12 +27,24 @@ public class AnalyzerWebDriver {
 
 		switch (args[0]) {
 		case "analyzerServer":
-			logger.info("索引接口： ");
+			logger.info("中文分词服务");
 			AnalyzerServer.main(leftArgs);
 			break;
 		default:
 			return;
 		}
+
+		// 需要修改，启动接口后，又关闭了
+		//		int exitCode = -1;
+		//		ProgramDriver pgd = new ProgramDriver();
+		//		try {
+		//			pgd.addClass("analyzerServer", AnalyzerServer.class, "中文分词服务");
+		//			pgd.driver(args);
+		//			exitCode = 0;
+		//		} catch (Throwable e) {
+		//			throw new RuntimeException(e);
+		//		}
+		//		System.exit(exitCode);
 
 	}
 
