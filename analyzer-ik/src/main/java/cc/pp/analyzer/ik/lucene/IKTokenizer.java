@@ -56,11 +56,11 @@ public final class IKTokenizer extends Tokenizer {
 	 * @param in
 	 * @param useSmart
 	 */
-	public IKTokenizer(Reader in , boolean useSmart){
-	    super(in);
-	    offsetAtt = addAttribute(OffsetAttribute.class);
-	    termAtt = addAttribute(CharTermAttribute.class);
-		_IKImplement = new IKSegmenter(in , useSmart);
+	public IKTokenizer(Reader in, boolean useSmart) {
+		super(in);
+		offsetAtt = addAttribute(OffsetAttribute.class);
+		termAtt = addAttribute(CharTermAttribute.class);
+		_IKImplement = new IKSegmenter(in, useSmart);
 	}
 
 	/* (non-Javadoc)
@@ -71,7 +71,7 @@ public final class IKTokenizer extends Tokenizer {
 		//清除所有的词元属性
 		clearAttributes();
 		Lexeme nextLexeme = _IKImplement.next();
-		if(nextLexeme != null){
+		if (nextLexeme != null) {
 			//将Lexeme转成Attributes
 			//设置词元文本
 			termAtt.append(nextLexeme.getLexemeText());
@@ -88,7 +88,6 @@ public final class IKTokenizer extends Tokenizer {
 		return false;
 	}
 
-
 	/*
 	 * (non-Javadoc)
 	 * @see org.apache.lucene.analysis.Tokenizer#reset(java.io.Reader)
@@ -101,7 +100,8 @@ public final class IKTokenizer extends Tokenizer {
 
 	@Override
 	public final void end() {
-	    // set final offset
+		// set final offset
 		offsetAtt.setOffset(finalOffset, finalOffset);
 	}
+
 }
