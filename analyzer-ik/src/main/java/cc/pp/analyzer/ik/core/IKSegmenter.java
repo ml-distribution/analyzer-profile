@@ -57,7 +57,7 @@ public final class IKSegmenter {
 	 * 非智能分词：细粒度输出所有可能的切分结果
 	 * 智能分词： 合并数词和量词，对分词结果进行歧义判断
 	 */
-	public IKSegmenter(Reader input , boolean useSmart){
+	public IKSegmenter(Reader input, boolean useSmart) {
 		this.input = input;
 		this.cfg = DefaultConfig.getInstance();
 		this.cfg.setUseSmart(useSmart);
@@ -70,7 +70,7 @@ public final class IKSegmenter {
 	 * @param cfg 使用自定义的Configuration构造分词器
 	 *
 	 */
-	public IKSegmenter(Reader input , Configuration cfg){
+	public IKSegmenter(Reader input, Configuration cfg) {
 		this.input = input;
 		this.cfg = cfg;
 		this.init();
@@ -79,7 +79,7 @@ public final class IKSegmenter {
 	/**
 	 * 初始化
 	 */
-	private void init(){
+	private void init() {
 		//初始化词典单例
 		Dictionary.initial(this.cfg);
 		//初始化分词上下文
@@ -94,7 +94,7 @@ public final class IKSegmenter {
 	 * 初始化词典，加载子分词器实现
 	 * @return List<ISegmenter>
 	 */
-	private List<ISegmenter> loadSegmenters(){
+	private List<ISegmenter> loadSegmenters() {
 		List<ISegmenter> segmenters = new ArrayList<ISegmenter>(4);
 		//处理字母的子分词器
 		segmenters.add(new LetterSegmenter());
@@ -114,34 +114,34 @@ public final class IKSegmenter {
 
 		Lexeme l = null;
 
-		while((l = context.getNextLexeme()) == null){
+		while ((l = context.getNextLexeme()) == null) {
 			/*
 			 * 从reader中读取数据，填充buffer
 			 * 如果reader是分次读入buffer的，那么buffer要进行移位处理
 			 * 移位处理上次读入的但未处理的数据
 			 */
 			int available = context.fillBuffer(this.input);
-			if(available <= 0){
+			if (available <= 0) {
 				//reader已经读完
 				context.reset();
 				return null;
 
-			}else{
+			} else {
 				//初始化指针
 				context.initCursor();
-				do{
-        			//遍历子分词器
-        			for(ISegmenter segmenter : segmenters){
-        				segmenter.analyze(context);
-        			}
-        			//字符缓冲区接近读完，需要读入新的字符
-        			if(context.needRefillBuffer()){
-        				break;
-        			}
-   				//向前移动指针
+				do {
+					//遍历子分词器
+					for (ISegmenter segmenter : segmenters) {
+						segmenter.analyze(context);
+					}
+					//字符缓冲区接近读完，需要读入新的字符
+					if (context.needRefillBuffer()) {
+						break;
+					}
+					//向前移动指针
 				} while (context.moveCursor());
 				//重置子分词器，为下轮循环进行初始化
-				for(ISegmenter segmenter : segmenters){
+				for (ISegmenter segmenter : segmenters) {
 					segmenter.reset();
 				}
 			}
@@ -155,15 +155,17 @@ public final class IKSegmenter {
 
 		return l;
 	}
-    /**
-     * 重置分词器到初始状态
-     * @param input
-     */
+
+	/**
+	 * 重置分词器到初始状态
+	 * @param input
+	 */
 	public synchronized void reset(Reader input) {
 		this.input = input;
 		context.reset();
-		for(ISegmenter segmenter : segmenters){
+		for (ISegmenter segmenter : segmenters) {
 			segmenter.reset();
 		}
 	}
+
 }

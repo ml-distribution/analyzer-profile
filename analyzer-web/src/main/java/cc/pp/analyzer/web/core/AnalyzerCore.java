@@ -7,7 +7,6 @@ import java.util.List;
 
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
-import org.apache.lucene.util.Version;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,7 +35,7 @@ public class AnalyzerCore {
 
 	public AnalyzerCore() {
 		fudanKeyword = new WordExtractFudan();
-		ikAnalyzer = new IKAnalyzer(Version.LUCENE_48);
+		ikAnalyzer = new IKAnalyzer();
 		mmseg4jAnalyzer = new MMSeg4jWordSeg();
 	}
 

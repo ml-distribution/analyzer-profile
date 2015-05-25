@@ -25,15 +25,13 @@
  */
 package cc.pp.analyzer.ik.solr;
 
-import java.io.IOException;
-import java.io.Reader;
 import java.util.Map;
 
 import org.apache.lucene.analysis.Tokenizer;
 import org.apache.lucene.analysis.util.ResourceLoader;
 import org.apache.lucene.analysis.util.ResourceLoaderAware;
 import org.apache.lucene.analysis.util.TokenizerFactory;
-import org.apache.lucene.util.AttributeSource.AttributeFactory;
+import org.apache.lucene.util.AttributeFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -57,30 +55,22 @@ public class IKTokenizerFactory extends TokenizerFactory implements ResourceLoad
 	public IKTokenizerFactory(Map<String, String> args) {
 		super(args);
 		// args不消耗，不知啥原因；官方自带的分词器可以消耗这些参数
-		//		if (!args.isEmpty()) {
-		//			throw new IllegalArgumentException("Unknown parameters: " + args);
-		//		}
+		if (!args.isEmpty()) {
+			throw new IllegalArgumentException("Unknown parameters: " + args);
+		}
 	}
 
 	@Override
-	public Tokenizer create(AttributeFactory factory, Reader input) {
+	public Tokenizer create(AttributeFactory factory) {
 		IKTokenizer tokenizer = tokenizerLocal.get();
 		if (tokenizer == null) {
-			tokenizer = newTokenizer(input);
-		} else {
-			try {
-				tokenizer.setReader(input);
-			} catch (IOException e) {
-				tokenizer = newTokenizer(input);
-				logger.info("IKTokenizer.reset i/o error by: " + e.getMessage());
-			}
+			tokenizer = newTokenizer(factory);
 		}
-
 		return tokenizer;
 	}
 
-	private IKTokenizer newTokenizer(Reader input) {
-		IKTokenizer tokenizer = new IKTokenizer(input, useSmart);
+	private IKTokenizer newTokenizer(AttributeFactory factory) {
+		IKTokenizer tokenizer = new IKTokenizer(factory, useSmart);
 		tokenizerLocal.set(tokenizer);
 		return tokenizer;
 	}

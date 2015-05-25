@@ -1,12 +1,12 @@
 package cc.pp.analyzer.mmseg4j.analyzer;
 
 import java.io.IOException;
-import java.io.Reader;
 
 import org.apache.lucene.analysis.Tokenizer;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 import org.apache.lucene.analysis.tokenattributes.OffsetAttribute;
 import org.apache.lucene.analysis.tokenattributes.TypeAttribute;
+import org.apache.lucene.util.AttributeFactory;
 
 import cc.pp.analyzer.mmseg4j.MMSeg;
 import cc.pp.analyzer.mmseg4j.Seg;
@@ -23,46 +23,49 @@ public class MMSegTokenizer extends Tokenizer {
 	/**
 	 * 为适应solr4.6添加的
 	 */
-	public MMSegTokenizer(Reader input) {
-		super(input);
+	public MMSegTokenizer(Seg seg) {
+		init(seg);
 	}
 
-	public MMSegTokenizer(Seg seg, Reader input) {
-		super(input);
+	public MMSegTokenizer(AttributeFactory factory, Seg seg) {
+		super(factory);
+		init(seg);
+	}
+
+	private void init(Seg seg) {
 		mmSeg = new MMSeg(input, seg);
-
-		termAtt = addAttribute(CharTermAttribute.class);
-		offsetAtt = addAttribute(OffsetAttribute.class);
-		typeAtt = addAttribute(TypeAttribute.class);
+		this.termAtt = addAttribute(CharTermAttribute.class);
+		this.offsetAtt = addAttribute(OffsetAttribute.class);
+		this.typeAtt = addAttribute(TypeAttribute.class);
 	}
 
-/*//lucene 2.9 以下
- 	public Token next(Token reusableToken) throws IOException {
-		Token token = null;
-		Word word = mmSeg.next();
-		if(word != null) {
-			//lucene 2.3
-			reusableToken.clear();
-			reusableToken.setTermBuffer(word.getSen(), word.getWordOffset(), word.getLength());
-			reusableToken.setStartOffset(word.getStartOffset());
-			reusableToken.setEndOffset(word.getEndOffset());
-			reusableToken.setType(word.getType());
+	/*//lucene 2.9 以下
+	 	public Token next(Token reusableToken) throws IOException {
+			Token token = null;
+			Word word = mmSeg.next();
+			if(word != null) {
+				//lucene 2.3
+				reusableToken.clear();
+				reusableToken.setTermBuffer(word.getSen(), word.getWordOffset(), word.getLength());
+				reusableToken.setStartOffset(word.getStartOffset());
+				reusableToken.setEndOffset(word.getEndOffset());
+				reusableToken.setType(word.getType());
 
-			token = reusableToken;
+				token = reusableToken;
 
-			//lucene 2.4
-			//token = reusableToken.reinit(word.getSen(), word.getWordOffset(), word.getLength(), word.getStartOffset(), word.getEndOffset(), word.getType());
-		}
+				//lucene 2.4
+				//token = reusableToken.reinit(word.getSen(), word.getWordOffset(), word.getLength(), word.getStartOffset(), word.getEndOffset(), word.getType());
+			}
 
-		return token;
-	}*/
+			return token;
+		}*/
 
 	//lucene 2.9/3.0
 	@Override
 	public final boolean incrementToken() throws IOException {
 		clearAttributes();
 		Word word = mmSeg.next();
-		if(word != null) {
+		if (word != null) {
 			//lucene 3.0
 			//termAtt.setTermBuffer(word.getSen(), word.getWordOffset(), word.getLength());
 			//lucene 3.1
@@ -88,6 +91,11 @@ public class MMSegTokenizer extends Tokenizer {
 	@Override
 	public void end() throws IOException {
 		super.end();
+	}
+
+	@Override
+	public void close() throws IOException {
+		super.close();
 	}
 
 }

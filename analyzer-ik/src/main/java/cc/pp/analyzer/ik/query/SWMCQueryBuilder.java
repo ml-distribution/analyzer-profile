@@ -33,7 +33,6 @@ import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.Query;
-import org.apache.lucene.util.Version;
 
 import cc.pp.analyzer.ik.core.IKSegmenter;
 import cc.pp.analyzer.ik.core.Lexeme;
@@ -57,9 +56,9 @@ public class SWMCQueryBuilder {
 		if (fieldName == null || keywords == null) {
 			throw new IllegalArgumentException("参数 fieldName 、 keywords 不能为null.");
 		}
-		//1.对keywords进行分词处理
+		// 1.对keywords进行分词处理
 		List<Lexeme> lexemes = doAnalyze(keywords);
-		//2.根据分词结果，生成SWMCQuery
+		// 2.根据分词结果，生成SWMCQuery
 		Query _SWMCQuery = getSWMCQuery(fieldName, lexemes, quickMode);
 		return _SWMCQuery;
 	}
@@ -91,20 +90,20 @@ public class SWMCQueryBuilder {
 	 * @return
 	 */
 	private static Query getSWMCQuery(String fieldName, List<Lexeme> lexemes, boolean quickMode) {
-		//构造SWMC的查询表达式
+		// 构造SWMC的查询表达式
 		StringBuffer keywordBuffer = new StringBuffer();
-		//精简的SWMC的查询表达式
+		// 精简的SWMC的查询表达式
 		StringBuffer keywordBuffer_Short = new StringBuffer();
-		//记录最后词元长度
+		// 记录最后词元长度
 		int lastLexemeLength = 0;
-		//记录最后词元结束位置
+		// 记录最后词元结束位置
 		int lastLexemeEnd = -1;
 
 		int shortCount = 0;
 		int totalCount = 0;
 		for (Lexeme l : lexemes) {
 			totalCount += l.getLength();
-			//精简表达式
+			// 精简表达式
 			if (l.getLength() > 1) {
 				keywordBuffer_Short.append(' ').append(l.getLexemeText());
 				shortCount += l.getLength();
@@ -112,7 +111,8 @@ public class SWMCQueryBuilder {
 
 			if (lastLexemeLength == 0) {
 				keywordBuffer.append(l.getLexemeText());
-			} else if (lastLexemeLength == 1 && l.getLength() == 1 && lastLexemeEnd == l.getBeginPosition()) {//单字位置相邻，长度为一，合并)
+			} else if (lastLexemeLength == 1 && l.getLength() == 1 && lastLexemeEnd == l.getBeginPosition()) {
+				// 单字位置相邻，长度为一，合并)
 				keywordBuffer.append(l.getLexemeText());
 			} else {
 				keywordBuffer.append(' ').append(l.getLexemeText());
@@ -122,14 +122,14 @@ public class SWMCQueryBuilder {
 			lastLexemeEnd = l.getEndPosition();
 		}
 
-		//借助lucene queryparser 生成SWMC Query
-		QueryParser qp = new QueryParser(Version.LUCENE_48, fieldName, new StandardAnalyzer(Version.LUCENE_48));
+		// 借助lucene queryparser 生成SWMC Query
+		QueryParser qp = new QueryParser(fieldName, new StandardAnalyzer());
 		qp.setDefaultOperator(QueryParser.AND_OPERATOR);
 		qp.setAutoGeneratePhraseQueries(true);
 
 		if (quickMode && (shortCount * 1.0f / totalCount) > 0.5f) {
 			try {
-				//System.out.println(keywordBuffer.toString());
+				// System.out.println(keywordBuffer.toString());
 				Query q = qp.parse(keywordBuffer_Short.toString());
 				return q;
 			} catch (ParseException e) {
@@ -139,7 +139,7 @@ public class SWMCQueryBuilder {
 		} else {
 			if (keywordBuffer.length() > 0) {
 				try {
-					//System.out.println(keywordBuffer.toString());
+					// System.out.println(keywordBuffer.toString());
 					Query q = qp.parse(keywordBuffer.toString());
 					return q;
 				} catch (ParseException e) {
@@ -147,6 +147,8 @@ public class SWMCQueryBuilder {
 				}
 			}
 		}
+
 		return null;
 	}
+
 }

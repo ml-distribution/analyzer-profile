@@ -18,22 +18,23 @@ import cc.pp.analyzer.mmseg4j.Word;
  *
  * @author chenlb 2009-10-14 下午04:03:18
  */
+@Deprecated
 public class CutLetterDigitFilter extends TokenFilter {
 
 	protected Queue<Token> tokenQueue = new LinkedList<Token>();
 
 	private CharTermAttribute termAtt;
-    private OffsetAttribute offsetAtt;
-    private TypeAttribute typeAtt;
-    private Token reusableToken;
+	private OffsetAttribute offsetAtt;
+	private TypeAttribute typeAtt;
+	private Token reusableToken;
 
 	public CutLetterDigitFilter(TokenStream input) {
 		super(input);
 
 		reusableToken = new Token();
-		termAtt = (CharTermAttribute)addAttribute(CharTermAttribute.class);
-		offsetAtt = (OffsetAttribute)addAttribute(OffsetAttribute.class);
-		typeAtt = (TypeAttribute)addAttribute(TypeAttribute.class);
+		termAtt = addAttribute(CharTermAttribute.class);
+		offsetAtt = addAttribute(OffsetAttribute.class);
+		typeAtt = addAttribute(TypeAttribute.class);
 	}
 
 	//兼容 lucene 2.9
@@ -46,7 +47,7 @@ public class CutLetterDigitFilter extends TokenFilter {
 
 		//先使用上次留下来的。
 		Token nextToken = tokenQueue.poll();
-		if(nextToken != null) {
+		if (nextToken != null) {
 			return nextToken;
 		}
 
@@ -63,21 +64,20 @@ public class CutLetterDigitFilter extends TokenFilter {
 
 		nextToken = TokenUtils.nextToken(input, reusableToken);
 
-		if(nextToken != null &&
-				(Word.TYPE_LETTER_OR_DIGIT.equalsIgnoreCase(nextToken.type())
-					|| Word.TYPE_DIGIT_OR_LETTER.equalsIgnoreCase(nextToken.type()))
-				) {
+		if (nextToken != null
+				&& (Word.TYPE_LETTER_OR_DIGIT.equalsIgnoreCase(nextToken.type()) || Word.TYPE_DIGIT_OR_LETTER
+						.equalsIgnoreCase(nextToken.type()))) {
 			final char[] buffer = nextToken.buffer();
 			final int length = nextToken.length();
-			byte lastType = (byte) Character.getType(buffer[0]);	//与上次的字符是否同类
+			byte lastType = (byte) Character.getType(buffer[0]); //与上次的字符是否同类
 			int termBufferOffset = 0;
 			int termBufferLength = 0;
-			for(int i=0;i<length;i++) {
+			for (int i = 0; i < length; i++) {
 				byte type = (byte) Character.getType(buffer[i]);
-				if(type <= Character.MODIFIER_LETTER) {
+				if (type <= Character.MODIFIER_LETTER) {
 					type = Character.LOWERCASE_LETTER;
 				}
-				if(type != lastType) {	//与上一次的不同
+				if (type != lastType) { //与上一次的不同
 					addToken(nextToken, termBufferOffset, termBufferLength, lastType);
 
 					termBufferOffset += termBufferLength;
@@ -88,7 +88,7 @@ public class CutLetterDigitFilter extends TokenFilter {
 
 				termBufferLength++;
 			}
-			if(termBufferLength > 0) {	//最后一次
+			if (termBufferLength > 0) { //最后一次
 				addToken(nextToken, termBufferOffset, termBufferLength, lastType);
 			}
 			nextToken = tokenQueue.poll();
@@ -98,10 +98,12 @@ public class CutLetterDigitFilter extends TokenFilter {
 	}
 
 	private void addToken(Token oriToken, int termBufferOffset, int termBufferLength, byte type) {
-		Token token = new Token(oriToken.buffer(), termBufferOffset, termBufferLength,
-				oriToken.startOffset()+termBufferOffset, oriToken.startOffset()+termBufferOffset+termBufferLength);
+		//		Token token = new Token(oriToken.buffer(), termBufferOffset, termBufferLength, oriToken.startOffset()
+		//				+ termBufferOffset, oriToken.startOffset() + termBufferOffset + termBufferLength);
+		Token token = new Token(oriToken, oriToken.startOffset() + termBufferOffset, oriToken.startOffset()
+				+ termBufferOffset + termBufferLength);
 
-		if(type == Character.DECIMAL_DIGIT_NUMBER) {
+		if (type == Character.DECIMAL_DIGIT_NUMBER) {
 			token.setType(Word.TYPE_DIGIT);
 		} else {
 			token.setType(Word.TYPE_LETTER);
@@ -110,20 +112,23 @@ public class CutLetterDigitFilter extends TokenFilter {
 		tokenQueue.offer(token);
 	}
 
+	@Override
 	public void close() throws IOException {
 		super.close();
 		tokenQueue.clear();
 	}
 
+	@Override
 	public void reset() throws IOException {
 		super.reset();
 		tokenQueue.clear();
 	}
 
+	@Override
 	public final boolean incrementToken() throws IOException {
 		clearAttributes();
 		Token token = nextToken(reusableToken);
-		if(token != null) {
+		if (token != null) {
 			termAtt.copyBuffer(token.buffer(), 0, token.length());
 			offsetAtt.setOffset(token.startOffset(), token.endOffset());
 			typeAtt.setType(token.type());
@@ -134,9 +139,12 @@ public class CutLetterDigitFilter extends TokenFilter {
 		}
 	}
 
-    public void end() {
-    	try {
-    		reset();
-    	} catch(IOException e) {}
-    }
+	@Override
+	public void end() {
+		try {
+			reset();
+		} catch (IOException e) {
+		}
+	}
+
 }

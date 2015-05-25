@@ -46,7 +46,6 @@ import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.LockObtainFailedException;
 import org.apache.lucene.store.RAMDirectory;
-import org.apache.lucene.util.Version;
 
 import cc.pp.analyzer.ik.lucene.IKAnalyzer;
 
@@ -67,7 +66,7 @@ public class IKAnalyzerDemo {
 		String text = "IK Analyzer是一个结合词典分词和文法分词的中文分词开源工具包。它使用了全新的正向迭代最细粒度切分算法。";
 
 		//实例化IKAnalyzer分词器
-		Analyzer analyzer = new IKAnalyzer(Version.LUCENE_48, true);
+		Analyzer analyzer = new IKAnalyzer(true);
 
 		Directory directory = null;
 		IndexWriter iwriter = null;
@@ -78,7 +77,7 @@ public class IKAnalyzerDemo {
 			directory = new RAMDirectory();
 
 			//配置IndexWriterConfig
-			IndexWriterConfig iwConfig = new IndexWriterConfig(Version.LUCENE_48, analyzer);
+			IndexWriterConfig iwConfig = new IndexWriterConfig(analyzer);
 			iwConfig.setOpenMode(OpenMode.CREATE_OR_APPEND);
 			iwriter = new IndexWriter(directory, iwConfig);
 			//写入索引
@@ -96,7 +95,7 @@ public class IKAnalyzerDemo {
 			String keyword = "中文分词工具包";
 			//			String keyword = "计算机算法";
 			//使用QueryParser查询分析器构造Query对象
-			QueryParser qp = new QueryParser(Version.LUCENE_48, fieldName, analyzer);
+			QueryParser qp = new QueryParser(fieldName, analyzer);
 			qp.setDefaultOperator(QueryParser.AND_OPERATOR);
 			Query query = qp.parse(keyword);
 			System.out.println("Query = " + query);
@@ -136,4 +135,5 @@ public class IKAnalyzerDemo {
 			}
 		}
 	}
+
 }

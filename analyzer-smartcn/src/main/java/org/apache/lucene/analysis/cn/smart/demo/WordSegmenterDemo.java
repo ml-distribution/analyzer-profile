@@ -17,6 +17,7 @@ public class WordSegmenterDemo {
 		for (SegToken token : tokens) {
 			System.out.print(String.valueOf(token.charArray) + "  ");
 		}
+
 	}
 
 }

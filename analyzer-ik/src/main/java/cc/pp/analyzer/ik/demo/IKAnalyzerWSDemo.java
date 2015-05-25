@@ -4,7 +4,6 @@ import java.io.StringReader;
 
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
-import org.apache.lucene.util.Version;
 
 import cc.pp.analyzer.ik.lucene.IKAnalyzer;
 
@@ -18,7 +17,7 @@ public class IKAnalyzerWSDemo {
 	public static void main(String[] args) throws Exception {
 
 		String data = "今天在淘宝的聚划算上买了一件衣服。";
-		IKAnalyzer analyzer = new IKAnalyzer(Version.LUCENE_48);
+		IKAnalyzer analyzer = new IKAnalyzer();
 		//使用智能分词
 		analyzer.setUseSmart(true);
 		//打印分词结果

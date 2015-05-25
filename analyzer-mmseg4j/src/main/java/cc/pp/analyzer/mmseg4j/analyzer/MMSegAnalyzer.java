@@ -1,7 +1,6 @@
 package cc.pp.analyzer.mmseg4j.analyzer;
 
 import java.io.File;
-import java.io.Reader;
 
 import org.apache.lucene.analysis.Analyzer;
 
@@ -57,7 +56,8 @@ public class MMSegAnalyzer extends Analyzer {
 	}
 
 	@Override
-	protected TokenStreamComponents createComponents(String fieldName, Reader reader) {
-		return new TokenStreamComponents(new MMSegTokenizer(newSeg(), reader));
+	protected TokenStreamComponents createComponents(final String fieldName) {
+		return new TokenStreamComponents(new MMSegTokenizer(newSeg()));
 	}
+
 }

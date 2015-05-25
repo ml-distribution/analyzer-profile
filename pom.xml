@@ -5,12 +5,12 @@
 	<parent>
 		<groupId>zx.soft</groupId>
 		<artifactId>common-parent</artifactId>
-		<version>1.0.0</version>
+		<version>2.0.0</version>
 	</parent>
 
 	<artifactId>analyzer-profile</artifactId>
 	<packaging>pom</packaging>
-	<version>2.0.0</version>
+	<version>5.1.0</version>
 	<name>Analyzer Profile [Build POM]</name>
 	<description>Profiling several Analyzers for Chinese Words Segment</description>
 

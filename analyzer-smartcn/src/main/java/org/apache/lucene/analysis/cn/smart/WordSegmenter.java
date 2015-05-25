@@ -30,9 +30,9 @@ import org.apache.lucene.analysis.cn.smart.hhmm.SegTokenFilter;
  */
 public class WordSegmenter {
 
-	private final HHMMSegmenter hhmmSegmenter = new HHMMSegmenter();
+	private HHMMSegmenter hhmmSegmenter = new HHMMSegmenter();
 
-	private final SegTokenFilter tokenFilter = new SegTokenFilter();
+	private SegTokenFilter tokenFilter = new SegTokenFilter();
 
 	/**
 	 * Segment a sentence into words with {@link HHMMSegmenter}
@@ -47,7 +47,7 @@ public class WordSegmenter {
 		// tokens from sentence, excluding WordType.SENTENCE_BEGIN and WordType.SENTENCE_END
 		List<SegToken> result = Collections.emptyList();
 
-		if (segTokenList.size() > 2) // if its not an empty sentence
+		if (segTokenList.size() > 2) // if it's not an empty sentence
 			result = segTokenList.subList(1, segTokenList.size() - 1);
 
 		for (SegToken st : result)
@@ -84,5 +84,4 @@ public class WordSegmenter {
 		st.endOffset += sentenceStartOffset;
 		return st;
 	}
-
 }

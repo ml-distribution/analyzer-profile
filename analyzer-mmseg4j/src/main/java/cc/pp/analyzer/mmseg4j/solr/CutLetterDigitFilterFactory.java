@@ -12,6 +12,7 @@ import cc.pp.analyzer.mmseg4j.analyzer.CutLetterDigitFilter;
  *
  * @author chenlb 2010-12-17下午10:10:48
  */
+@SuppressWarnings("deprecation")
 public class CutLetterDigitFilterFactory extends TokenFilterFactory {
 
 	public CutLetterDigitFilterFactory(Map<String, String> args) {
@@ -20,7 +21,6 @@ public class CutLetterDigitFilterFactory extends TokenFilterFactory {
 
 	@Override
 	public TokenStream create(TokenStream input) {
-
 		return new CutLetterDigitFilter(input);
 	}
 

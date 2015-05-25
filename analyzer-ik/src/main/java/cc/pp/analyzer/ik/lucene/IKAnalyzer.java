@@ -24,20 +24,15 @@
  */
 package cc.pp.analyzer.ik.lucene;
 
-import java.io.Reader;
-
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.Tokenizer;
 import org.apache.lucene.analysis.core.LowerCaseFilter;
-import org.apache.lucene.util.Version;
 
 /**
  * IK分词器，Lucene Analyzer接口实现
  *  兼容lucene4.6
  */
 public final class IKAnalyzer extends Analyzer {
-
-	private final Version matchVersion;
 
 	private boolean useSmart;
 
@@ -54,8 +49,8 @@ public final class IKAnalyzer extends Analyzer {
 	 *
 	 * 默认细粒度切分算法
 	 */
-	public IKAnalyzer(Version matchVersion) {
-		this(matchVersion, false);
+	public IKAnalyzer() {
+		this(Boolean.FALSE);
 	}
 
 	/**
@@ -63,14 +58,14 @@ public final class IKAnalyzer extends Analyzer {
 	 *
 	 * @param useSmart 当为true时，分词器进行智能切分
 	 */
-	public IKAnalyzer(Version matchVersion, boolean useSmart) {
+	public IKAnalyzer(boolean useSmart) {
 		this.useSmart = useSmart;
-		this.matchVersion = matchVersion;
 	}
 
 	@Override
-	protected TokenStreamComponents createComponents(String fieldName, Reader reader) {
-		Tokenizer tokenizer = new IKTokenizer(reader, useSmart);
-		return new TokenStreamComponents(tokenizer, new LowerCaseFilter(matchVersion, tokenizer));
+	protected TokenStreamComponents createComponents(final String fieldName) {
+		Tokenizer tokenizer = new IKTokenizer(useSmart);
+		return new TokenStreamComponents(tokenizer, new LowerCaseFilter(tokenizer));
 	}
+
 }

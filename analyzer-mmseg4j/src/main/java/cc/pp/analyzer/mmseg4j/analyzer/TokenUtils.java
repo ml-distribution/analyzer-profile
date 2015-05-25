@@ -13,6 +13,7 @@ import org.apache.lucene.analysis.tokenattributes.TypeAttribute;
  *
  * @author chenlb 2010-10-7下午10:07:10
  */
+@Deprecated
 public class TokenUtils {
 
 	/**
@@ -22,10 +23,10 @@ public class TokenUtils {
 	 * @throws IOException
 	 */
 	public static Token nextToken(TokenStream input, Token reusableToken) throws IOException {
-		if(input == null) {
+		if (input == null) {
 			return null;
 		}
-		if(!input.incrementToken()) {
+		if (!input.incrementToken()) {
 			return null;
 		}
 
@@ -33,18 +34,18 @@ public class TokenUtils {
 		OffsetAttribute offsetAtt = input.getAttribute(OffsetAttribute.class);
 		TypeAttribute typeAtt = input.getAttribute(TypeAttribute.class);
 
-		if(reusableToken == null) {
+		if (reusableToken == null) {
 			reusableToken = new Token();
 		}
 
 		reusableToken.clear();
-		if(termAtt != null) {
+		if (termAtt != null) {
 			//lucene 3.0
 			//reusableToken.setTermBuffer(termAtt.termBuffer(), 0, termAtt.termLength());
 			//lucene 3.1
 			reusableToken.copyBuffer(termAtt.buffer(), 0, termAtt.length());
 		}
-		if(offsetAtt != null) {
+		if (offsetAtt != null) {
 			//lucene 3.1
 			//reusableToken.setStartOffset(offsetAtt.startOffset());
 			//reusableToken.setEndOffset(offsetAtt.endOffset());
@@ -52,10 +53,11 @@ public class TokenUtils {
 			reusableToken.setOffset(offsetAtt.startOffset(), offsetAtt.endOffset());
 		}
 
-		if(typeAtt != null) {
+		if (typeAtt != null) {
 			reusableToken.setType(typeAtt.type());
 		}
 
 		return reusableToken;
 	}
+
 }

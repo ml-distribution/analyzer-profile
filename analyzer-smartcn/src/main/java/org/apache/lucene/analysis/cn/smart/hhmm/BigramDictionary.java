@@ -1,32 +1,15 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to You under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package org.apache.lucene.analysis.cn.smart.hhmm;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.apache.lucene.analysis.cn.smart.AnalyzerProfile;
 
@@ -37,6 +20,7 @@ import org.apache.lucene.analysis.cn.smart.AnalyzerProfile;
 class BigramDictionary extends AbstractDictionary {
 
 	private BigramDictionary() {
+		//
 	}
 
 	public static final char WORD_SEGMENT_CHAR = '@';
@@ -46,7 +30,7 @@ class BigramDictionary extends AbstractDictionary {
 	public static final int PRIME_BIGRAM_LENGTH = 402137;
 
 	/*
-	 * The word associations are stored as FNV1 hashcodes, which have a small probability of collision, but save memory.  
+	 * The word associations are stored as FNV1 hashcodes, which have a small probability of collision, but save memory.
 	 */
 	private long[] bigramHashTable;
 
@@ -74,9 +58,9 @@ class BigramDictionary extends AbstractDictionary {
 		return singleInstance;
 	}
 
-	private boolean loadFromObj(File serialObj) {
+	private boolean loadFromObj(Path serialObj) {
 		try {
-			loadFromInputStream(new FileInputStream(serialObj));
+			loadFromInputStream(Files.newInputStream(serialObj));
 			return true;
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -91,9 +75,9 @@ class BigramDictionary extends AbstractDictionary {
 		input.close();
 	}
 
-	private void saveToObj(File serialObj) {
+	private void saveToObj(Path serialObj) {
 		try {
-			ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(serialObj));
+			ObjectOutputStream output = new ObjectOutputStream(Files.newOutputStream(serialObj));
 			output.writeObject(bigramHashTable);
 			output.writeObject(frequencyTable);
 			output.close();
@@ -111,9 +95,9 @@ class BigramDictionary extends AbstractDictionary {
 	private void load(String dictRoot) {
 		String bigramDictPath = dictRoot + "/bigramdict.dct";
 
-		File serialObj = new File(dictRoot + "/bigramdict.mem");
+		Path serialObj = Paths.get(dictRoot + "/bigramdict.mem");
 
-		if (serialObj.exists() && loadFromObj(serialObj)) {
+		if (Files.exists(serialObj) && loadFromObj(serialObj)) {
 
 		} else {
 			try {
@@ -134,7 +118,7 @@ class BigramDictionary extends AbstractDictionary {
 
 	/**
 	 * Load the datafile into this BigramDictionary
-	 * 
+	 *
 	 * @param dctFilePath path to the Bigramdictionary (bigramdict.dct)
 	 * @throws IOException If there is a low-level I/O error
 	 */
@@ -142,12 +126,12 @@ class BigramDictionary extends AbstractDictionary {
 	public void loadFromFile(String dctFilePath) throws IOException {
 
 		int i, cnt, length, total = 0;
-		// The file only counted 6763 Chinese characters plus 5 reserved slots 3756~3760.  
+		// The file only counted 6763 Chinese characters plus 5 reserved slots 3756~3760.
 		// The 3756th is used (as a header) to store information.
 		int[] buffer = new int[3];
 		byte[] intBuffer = new byte[4];
 		String tmpword;
-		RandomAccessFile dctFile = new RandomAccessFile(dctFilePath, "r");
+		DataInputStream dctFile = new DataInputStream(Files.newInputStream(Paths.get(dctFilePath)));
 
 		// GB2312 characters 0 - 6768
 		for (i = GB2312_FIRST_CHAR; i < GB2312_FIRST_CHAR + CHAR_NUM_IN_FILE; i++) {

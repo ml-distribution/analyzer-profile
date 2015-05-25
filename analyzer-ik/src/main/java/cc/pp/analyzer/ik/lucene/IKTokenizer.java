@@ -27,11 +27,11 @@
 package cc.pp.analyzer.ik.lucene;
 
 import java.io.IOException;
-import java.io.Reader;
 
 import org.apache.lucene.analysis.Tokenizer;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 import org.apache.lucene.analysis.tokenattributes.OffsetAttribute;
+import org.apache.lucene.util.AttributeFactory;
 
 import cc.pp.analyzer.ik.core.IKSegmenter;
 import cc.pp.analyzer.ik.core.Lexeme;
@@ -42,13 +42,13 @@ import cc.pp.analyzer.ik.core.Lexeme;
  */
 public final class IKTokenizer extends Tokenizer {
 
-	//IK分词器实现
-	private final IKSegmenter _IKImplement;
-	//词元文本属性
-	private final CharTermAttribute termAtt;
-	//词元位移属性
-	private final OffsetAttribute offsetAtt;
-	//记录最后一个词元的结束位置
+	// IK分词器实现
+	private IKSegmenter iKImplement;
+	// 词元文本属性
+	private CharTermAttribute termAtt;
+	// 词元位移属性
+	private OffsetAttribute offsetAtt;
+	// 记录最后一个词元的结束位置
 	private int finalOffset;
 
 	/**
@@ -56,11 +56,19 @@ public final class IKTokenizer extends Tokenizer {
 	 * @param in
 	 * @param useSmart
 	 */
-	public IKTokenizer(Reader in, boolean useSmart) {
-		super(in);
-		offsetAtt = addAttribute(OffsetAttribute.class);
-		termAtt = addAttribute(CharTermAttribute.class);
-		_IKImplement = new IKSegmenter(in, useSmart);
+	public IKTokenizer(boolean useSmart) {
+		init(useSmart);
+	}
+
+	public IKTokenizer(AttributeFactory factory, boolean useSmart) {
+		super(factory);
+		init(useSmart);
+	}
+
+	private void init(boolean useSmart) {
+		this.offsetAtt = addAttribute(OffsetAttribute.class);
+		this.termAtt = addAttribute(CharTermAttribute.class);
+		this.iKImplement = new IKSegmenter(input, useSmart);
 	}
 
 	/* (non-Javadoc)
@@ -68,40 +76,42 @@ public final class IKTokenizer extends Tokenizer {
 	 */
 	@Override
 	public boolean incrementToken() throws IOException {
-		//清除所有的词元属性
+		// 清除所有的词元属性
 		clearAttributes();
-		Lexeme nextLexeme = _IKImplement.next();
+		Lexeme nextLexeme = iKImplement.next();
 		if (nextLexeme != null) {
-			//将Lexeme转成Attributes
-			//设置词元文本
+			// 将Lexeme转成Attributes
+			// 设置词元文本
 			termAtt.append(nextLexeme.getLexemeText());
-			//设置词元长度
+			// 设置词元长度
 			termAtt.setLength(nextLexeme.getLength());
-			//设置词元位移
+			// 设置词元位移
 			offsetAtt.setOffset(nextLexeme.getBeginPosition(), nextLexeme.getEndPosition());
-			//记录分词的最后位置
+			// 记录分词的最后位置
 			finalOffset = nextLexeme.getEndPosition();
-			//返会true告知还有下个词元
+			// 返会true告知还有下个词元
 			return true;
 		}
-		//返会false告知词元输出完毕
+		// 返会false告知词元输出完毕
 		return false;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apache.lucene.analysis.Tokenizer#reset(java.io.Reader)
-	 */
 	@Override
 	public void reset() throws IOException {
 		super.reset();
-		_IKImplement.reset(input);
+		iKImplement.reset(input);
 	}
 
 	@Override
-	public final void end() {
-		// set final offset
+	public final void end() throws IOException {
+		super.end();
+		// 设置最后的偏移量
 		offsetAtt.setOffset(finalOffset, finalOffset);
+	}
+
+	@Override
+	public void close() throws IOException {
+		super.close();
 	}
 
 }

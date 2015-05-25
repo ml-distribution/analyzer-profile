@@ -1,7 +1,5 @@
 package cc.pp.analyzer.mmseg4j.solr;
 
-import java.io.IOException;
-import java.io.Reader;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -9,7 +7,7 @@ import org.apache.lucene.analysis.Tokenizer;
 import org.apache.lucene.analysis.util.ResourceLoader;
 import org.apache.lucene.analysis.util.ResourceLoaderAware;
 import org.apache.lucene.analysis.util.TokenizerFactory;
-import org.apache.lucene.util.AttributeSource.AttributeFactory;
+import org.apache.lucene.util.AttributeFactory;
 
 import cc.pp.analyzer.mmseg4j.ComplexSeg;
 import cc.pp.analyzer.mmseg4j.Dictionary;
@@ -38,10 +36,10 @@ public class MMSegTokenizerFactory extends TokenizerFactory implements ResourceL
 		log.info("create new Seg ...");
 		//default max-word
 		String mode = args.get("mode");
-		if("simple".equals(mode)) {
+		if ("simple".equals(mode)) {
 			log.info("use simple mode");
 			seg = new SimpleSeg(dic);
-		} else if("complex".equals(mode)) {
+		} else if ("complex".equals(mode)) {
 			log.info("use complex mode");
 			seg = new ComplexSeg(dic);
 		} else {
@@ -52,25 +50,19 @@ public class MMSegTokenizerFactory extends TokenizerFactory implements ResourceL
 	}
 
 	@Override
-	public Tokenizer create(AttributeFactory factory, Reader input) {
+	public Tokenizer create(AttributeFactory factory) {
 		MMSegTokenizer tokenizer = tokenizerLocal.get();
 		if (tokenizer == null) {
-			tokenizer = newTokenizer(input);
-		} else {
-			try {
-				tokenizer.setReader(input);
-			} catch (IOException e) {
-				tokenizer = newTokenizer(input);
-				log.info("MMSegTokenizer.reset i/o error by:" + e.getMessage());
-			}
+			tokenizer = newTokenizer(factory);
 		}
 
 		return tokenizer;
 	}
 
-	private MMSegTokenizer newTokenizer(Reader input) {
-		MMSegTokenizer tokenizer = new MMSegTokenizer(newSeg(getOriginalArgs()), input);
+	private MMSegTokenizer newTokenizer(AttributeFactory factory) {
+		MMSegTokenizer tokenizer = new MMSegTokenizer(factory, newSeg(getOriginalArgs()));
 		tokenizerLocal.set(tokenizer);
+
 		return tokenizer;
 	}
 
@@ -80,7 +72,7 @@ public class MMSegTokenizerFactory extends TokenizerFactory implements ResourceL
 
 		dic = Utils.getDict(dicPath, loader);
 
-		log.info("dic load... in="+dic.getDicPath().toURI());
+		log.info("dic load... in=" + dic.getDicPath().toURI());
 	}
 
 }

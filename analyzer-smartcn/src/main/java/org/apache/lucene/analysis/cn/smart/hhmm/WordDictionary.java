@@ -1,32 +1,15 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to You under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package org.apache.lucene.analysis.cn.smart.hhmm;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.apache.lucene.analysis.cn.smart.AnalyzerProfile;
 import org.apache.lucene.analysis.cn.smart.Utility;
@@ -49,9 +32,9 @@ class WordDictionary extends AbstractDictionary {
 	public static final int PRIME_INDEX_LENGTH = 12071;
 
 	/**
-	 * wordIndexTable guarantees to hash all Chinese characters in Unicode into 
-	 * PRIME_INDEX_LENGTH array. There will be conflict, but in reality this 
-	 * program only handles the 6768 characters found in GB2312 plus some 
+	 * wordIndexTable guarantees to hash all Chinese characters in Unicode into
+	 * PRIME_INDEX_LENGTH array. There will be conflict, but in reality this
+	 * program only handles the 6768 characters found in GB2312 plus some
 	 * ASCII characters. Therefore in order to guarantee better precision, it is
 	 * necessary to retain the original symbol in the charIndexTable.
 	 */
@@ -60,13 +43,13 @@ class WordDictionary extends AbstractDictionary {
 	private char[] charIndexTable;
 
 	/**
-	 * To avoid taking too much space, the data structure needed to store the 
+	 * To avoid taking too much space, the data structure needed to store the
 	 * lexicon requires two multidimensional arrays to store word and frequency.
-	 * Each word is placed in a char[]. Each char represents a Chinese char or 
-	 * other symbol.  Each frequency is put into an int. These two arrays 
-	 * correspond to each other one-to-one. Therefore, one can use 
-	 * wordItem_charArrayTable[i][j] to look up word from lexicon, and 
-	 * wordItem_frequencyTable[i][j] to look up the corresponding frequency. 
+	 * Each word is placed in a char[]. Each char represents a Chinese char or
+	 * other symbol.  Each frequency is put into an int. These two arrays
+	 * correspond to each other one-to-one. Therefore, one can use
+	 * wordItem_charArrayTable[i][j] to look up word from lexicon, and
+	 * wordItem_frequencyTable[i][j] to look up the corresponding frequency.
 	 */
 	private char[][][] wordItem_charArrayTable;
 
@@ -95,14 +78,14 @@ class WordDictionary extends AbstractDictionary {
 
 	/**
 	 * Attempt to load dictionary from provided directory, first trying coredict.mem, failing back on coredict.dct
-	 * 
+	 *
 	 * @param dctFileRoot path to dictionary directory
 	 */
 	public void load(String dctFileRoot) {
 		String dctFilePath = dctFileRoot + "/coredict.dct";
-		File serialObj = new File(dctFileRoot + "/coredict.mem");
+		Path serialObj = Paths.get(dctFileRoot + "/coredict.mem");
 
-		if (serialObj.exists() && loadFromObj(serialObj)) {
+		if (Files.exists(serialObj) && loadFromObj(serialObj)) {
 
 		} else {
 			try {
@@ -131,7 +114,7 @@ class WordDictionary extends AbstractDictionary {
 
 	/**
 	 * Load coredict.mem internally from the jar file.
-	 * 
+	 *
 	 * @throws IOException If there is a low-level I/O error.
 	 */
 	public void load() throws IOException, ClassNotFoundException {
@@ -139,9 +122,9 @@ class WordDictionary extends AbstractDictionary {
 		loadFromObjectInputStream(input);
 	}
 
-	private boolean loadFromObj(File serialObj) {
+	private boolean loadFromObj(Path serialObj) {
 		try {
-			loadFromObjectInputStream(new FileInputStream(serialObj));
+			loadFromObjectInputStream(Files.newInputStream(serialObj));
 			return true;
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -159,9 +142,9 @@ class WordDictionary extends AbstractDictionary {
 		input.close();
 	}
 
-	private void saveToObj(File serialObj) {
+	private void saveToObj(Path serialObj) {
 		try {
-			ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(serialObj));
+			ObjectOutputStream output = new ObjectOutputStream(Files.newOutputStream(serialObj));
 			output.writeObject(wordIndexTable);
 			output.writeObject(charIndexTable);
 			output.writeObject(wordItem_charArrayTable);
@@ -175,7 +158,7 @@ class WordDictionary extends AbstractDictionary {
 
 	/**
 	 * Load the datafile into this WordDictionary
-	 * 
+	 *
 	 * @param dctFilePath path to word dictionary (coredict.dct)
 	 * @return number of words read
 	 * @throws IOException If there is a low-level I/O error.
@@ -187,7 +170,7 @@ class WordDictionary extends AbstractDictionary {
 		int[] buffer = new int[3];
 		byte[] intBuffer = new byte[4];
 		String tmpword;
-		RandomAccessFile dctFile = new RandomAccessFile(dctFilePath, "r");
+		DataInputStream dctFile = new DataInputStream(Files.newInputStream(Paths.get(dctFilePath)));
 
 		// GB2312 characters 0 - 6768
 		for (i = GB2312_FIRST_CHAR; i < GB2312_FIRST_CHAR + CHAR_NUM_IN_FILE; i++) {
@@ -242,15 +225,15 @@ class WordDictionary extends AbstractDictionary {
 	}
 
 	/**
-	 * The original lexicon puts all information with punctuation into a 
+	 * The original lexicon puts all information with punctuation into a
 	 * chart (from 1 to 3755). Here it then gets expanded, separately being
 	 * placed into the chart that has the corresponding symbol.
 	 */
 	private void expandDelimiterData() {
 		int i;
 		int cnt;
-		// Punctuation then treating index 3755 as 1, 
-		// distribute the original punctuation corresponding dictionary into 
+		// Punctuation then treating index 3755 as 1,
+		// distribute the original punctuation corresponding dictionary into
 		int delimiterIndex = 3755 + GB2312_FIRST_CHAR;
 		i = 0;
 		while (i < wordItem_charArrayTable[delimiterIndex].length) {
@@ -348,7 +331,7 @@ class WordDictionary extends AbstractDictionary {
 	}
 
 	/*
-	 * Calculate character c's position in hash table, 
+	 * Calculate character c's position in hash table,
 	 * then initialize the value of that position in the address table.
 	 */
 	private boolean setTableIndex(char c, int j) {
@@ -403,11 +386,11 @@ class WordDictionary extends AbstractDictionary {
 	}
 
 	/**
-	 * Look up the text string corresponding with the word char array, 
+	 * Look up the text string corresponding with the word char array,
 	 * and return the position of the word list.
-	 * 
-	 * @param knownHashIndex already figure out position of the first word 
-	 *   symbol charArray[0] in hash table. If not calculated yet, can be 
+	 *
+	 * @param knownHashIndex already figure out position of the first word
+	 *   symbol charArray[0] in hash table. If not calculated yet, can be
 	 *   replaced with function int findInTable(char[] charArray).
 	 * @param charArray look up the char array corresponding with the word.
 	 * @return word location in word array.  If not found, then return -1.
@@ -438,7 +421,7 @@ class WordDictionary extends AbstractDictionary {
 
 	/**
 	 * Find the first word in the dictionary that starts with the supplied prefix
-	 * 
+	 *
 	 * @see #getPrefixMatch(char[], int)
 	 * @param charArray input prefix
 	 * @return index of word, or -1 if not found
@@ -449,7 +432,7 @@ class WordDictionary extends AbstractDictionary {
 
 	/**
 	 * Find the nth word in the dictionary that starts with the supplied prefix
-	 * 
+	 *
 	 * @see #getPrefixMatch(char[])
 	 * @param charArray input prefix
 	 * @param knownStart relative position in the dictionary to start
@@ -484,7 +467,7 @@ class WordDictionary extends AbstractDictionary {
 
 	/**
 	 * Get the frequency of a word from the dictionary
-	 * 
+	 *
 	 * @param charArray input word
 	 * @return word frequency, or zero if the word is not found
 	 */
@@ -501,7 +484,7 @@ class WordDictionary extends AbstractDictionary {
 
 	/**
 	 * Return true if the dictionary entry at itemIndex for table charArray[0] is charArray
-	 * 
+	 *
 	 * @param charArray input word
 	 * @param itemIndex item index for table charArray[0]
 	 * @return true if the entry exists
