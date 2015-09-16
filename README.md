@@ -85,7 +85,7 @@ web      |  接口服务
 
 ## 开发人员
 
-[新浪微博: 皮皮数据挖掘](http://www.weibo.com/u/1862087393 "新浪微博")
+[新浪微博: PlayBigData](http://www.weibo.com/u/1862087393 "新浪微博")
 
 [微信: wgybzb](https://github.com/wgybzbrobot "微信")
 
