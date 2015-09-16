@@ -15,7 +15,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.solr</groupId>
-			<artifactId>solr-core</artifactId>  <!-- 3.6.1 -->
+			<artifactId>solr-core</artifactId>
 			<exclusions>
 				<exclusion>
 					<groupId>com.googlecode.concurrentlinkedhashmap</groupId>
@@ -29,7 +29,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.apache.lucene</groupId>
-			<artifactId>lucene-core</artifactId> <!-- 3.5.0 -->
+			<artifactId>lucene-core</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.lucene</groupId>
@@ -72,7 +72,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>cc.pp.analyzer.ik.driver.Driver</mainClass>
+							<mainClass>cc.pp.analyzer.ik.driver.IKDriver</mainClass>
 						</manifest>
 					</archive>
 					<descriptorRefs>

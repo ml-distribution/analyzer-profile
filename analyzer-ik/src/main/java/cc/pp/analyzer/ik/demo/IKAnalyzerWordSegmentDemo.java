@@ -9,10 +9,11 @@ import cc.pp.analyzer.ik.lucene.IKAnalyzer;
 
 /**
  * IKAnalyzer 分词器测试
- * Lucene 3.5
- * @author WG
+ *
+ * @author wanggang
+ *
  */
-public class IKAnalyzerWSDemo {
+public class IKAnalyzerWordSegmentDemo {
 
 	public static void main(String[] args) throws Exception {
 

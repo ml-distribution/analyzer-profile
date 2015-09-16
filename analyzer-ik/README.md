@@ -1,5 +1,7 @@
 ## IK Analyzer
 
+> 目前兼容到Lucene5.1.0和Solr5.1.0版本，在原IK中文分词版本5.0上进行修改。
+
 ### 分词器说明
 
 [IK Analyzer](https://code.google.com/p/ik-analyzer/)是一个开源的，基于java语言开发的轻量级的中文分词工具包。
@@ -20,7 +22,7 @@
 
 5. 优化的词典存储，更小的内存占用。支持用户词典扩展定义。特别的，在2012版本，词典支持中文，英文，数字混合词语。
 
-6. 兼容lucene4.7和solr4.7版本，并在性能上做了很多优化。
+6. 兼容lucene5.1.0和solr5.1.0版本，并在性能上做了很多优化。
 
 ### 项目配置
 
@@ -38,10 +40,39 @@ ik_dic下面的ext_ik.dic和stopwords_ik.dic文件。
 
 ### 项目使用
 
-```java
-// 申明Analyzer
-
+* 运行**mvn clean package**, 将target下的**analyzer-ik-5.1.0.jar**文件，复制到**${solr.install.home}/contrib/analysis-extras/iklibs**下
+* 在solrconfig.xml中添加
+```xml
+Solr源文件：
+<lib dir="${solr.install.dir:../../../..}/contrib/analysis-extras/iklibs" regex=".*\.jar" />
+search-prod环境中:
+<lib dir="../../contrib/analysis-extras/iklibs" regex=".*\.jar" />
 ```
+* 将ik_dic复制到solr-5.1.0目录下；
+* 修改schema.xml如下：
+
+```xml
+    <fieldType name="text_ik" class="solr.TextField">   
+      <analyzer type="index">
+        <tokenizer class="cc.pp.analyzer.ik.solr.IKTokenizerFactory" useSmart="false" />
+      </analyzer>
+      <analyzer type="query">
+        <tokenizer class="cc.pp.analyzer.ik.solr.IKTokenizerFactory" useSmart="true" />
+      </analyzer>
+    </fieldType>
+ ```
+ **或者**
+ ```
+   <fieldType name="text_ik" class="solr.TextField">   
+      <analyzer type="index" useSmart="false" class="cc.pp.analyzer.ik.lucene.IKAnalyzer"/>   
+      <analyzer type="query" useSmart="true" class="cc.pp.analyzer.ik.lucene.IKAnalyzer"/>   
+    </fieldType>
+ ```
+> 具体参考search-prod项目中的配置。
+
+**tokenizer 的参数：**
+
+ * *useSmart* 参数 － 当为true时，设置分词器进行智能切分，当为false时，分词器进行细粒度切分算法
 
 ### 作者信息
 

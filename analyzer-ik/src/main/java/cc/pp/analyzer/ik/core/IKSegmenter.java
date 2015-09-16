@@ -1,26 +1,3 @@
-/**
- * IK 中文分词  版本 5.0
- * IK Analyzer release 5.0
- *
- * Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to You under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- * 源代码由林良益(linliangyi2005@gmail.com)提供
- * 版权声明 2012，乌龙茶工作室
- * provided by Linliangyi and copyright 2012 by Oolong studio
- */
 package cc.pp.analyzer.ik.core;
 
 import java.io.IOException;
@@ -35,27 +12,29 @@ import cc.pp.analyzer.ik.dic.Dictionary;
 /**
  * IK分词器主类
  *
+ * @author wanggang
+ *
  */
 public final class IKSegmenter {
 
-	//字符窜reader
+	// 字符窜reader
 	private Reader input;
-	//分词器配置项
+	// 分词器配置项
 	private final Configuration cfg;
-	//分词器上下文
+	// 分词器上下文
 	private AnalyzeContext context;
-	//分词处理器列表
+	// 分词处理器列表
 	private List<ISegmenter> segmenters;
-	//分词歧义裁决器
+	// 分词歧义裁决器
 	private IKArbitrator arbitrator;
 
 	/**
 	 * IK分词器构造函数
+	 *
 	 * @param input
 	 * @param useSmart 为true，使用智能分词策略
-	 *
-	 * 非智能分词：细粒度输出所有可能的切分结果
-	 * 智能分词： 合并数词和量词，对分词结果进行歧义判断
+	 *          非智能分词：细粒度输出所有可能的切分结果
+	 *          智能分词： 合并数词和量词，对分词结果进行歧义判断
 	 */
 	public IKSegmenter(Reader input, boolean useSmart) {
 		this.input = input;
@@ -66,6 +45,7 @@ public final class IKSegmenter {
 
 	/**
 	 * IK分词器构造函数
+	 *
 	 * @param input
 	 * @param cfg 使用自定义的Configuration构造分词器
 	 *
@@ -80,33 +60,36 @@ public final class IKSegmenter {
 	 * 初始化
 	 */
 	private void init() {
-		//初始化词典单例
+		// 初始化词典单例
 		Dictionary.initial(this.cfg);
-		//初始化分词上下文
+		// 初始化分词上下文
 		this.context = new AnalyzeContext(this.cfg);
-		//加载子分词器
+		// 加载子分词器
 		this.segmenters = this.loadSegmenters();
-		//加载歧义裁决器
+		// 加载歧义裁决器
 		this.arbitrator = new IKArbitrator();
 	}
 
 	/**
 	 * 初始化词典，加载子分词器实现
+	 *
 	 * @return List<ISegmenter>
 	 */
 	private List<ISegmenter> loadSegmenters() {
-		List<ISegmenter> segmenters = new ArrayList<ISegmenter>(4);
-		//处理字母的子分词器
+		List<ISegmenter> segmenters = new ArrayList<>(4);
+		// 处理字母的子分词器
 		segmenters.add(new LetterSegmenter());
-		//处理中文数量词的子分词器
+		// 处理中文数量词的子分词器
 		segmenters.add(new CN_QuantifierSegmenter());
-		//处理中文词的子分词器
+		// 处理中文词的子分词器
 		segmenters.add(new CJKSegmenter());
+
 		return segmenters;
 	}
 
 	/**
 	 * 分词，获取下一个词元
+	 *
 	 * @return Lexeme 词元对象
 	 * @throws IOException
 	 */
@@ -122,34 +105,34 @@ public final class IKSegmenter {
 			 */
 			int available = context.fillBuffer(this.input);
 			if (available <= 0) {
-				//reader已经读完
+				// reader已经读完
 				context.reset();
 				return null;
 
 			} else {
-				//初始化指针
+				// 初始化指针
 				context.initCursor();
 				do {
-					//遍历子分词器
+					// 遍历子分词器
 					for (ISegmenter segmenter : segmenters) {
 						segmenter.analyze(context);
 					}
-					//字符缓冲区接近读完，需要读入新的字符
+					// 字符缓冲区接近读完，需要读入新的字符
 					if (context.needRefillBuffer()) {
 						break;
 					}
-					//向前移动指针
+					// 向前移动指针
 				} while (context.moveCursor());
-				//重置子分词器，为下轮循环进行初始化
+				// 重置子分词器，为下轮循环进行初始化
 				for (ISegmenter segmenter : segmenters) {
 					segmenter.reset();
 				}
 			}
-			//对分词进行歧义处理
+			// 对分词进行歧义处理
 			this.arbitrator.process(context, this.cfg.useSmart());
-			//处理未切分CJK字符
+			// 处理未切分CJK字符
 			context.outputToResult();
-			//记录本次分词的缓冲区位移
+			// 记录本次分词的缓冲区位移
 			context.markBufferOffset();
 		}
 
@@ -158,6 +141,7 @@ public final class IKSegmenter {
 
 	/**
 	 * 重置分词器到初始状态
+	 *
 	 * @param input
 	 */
 	public synchronized void reset(Reader input) {

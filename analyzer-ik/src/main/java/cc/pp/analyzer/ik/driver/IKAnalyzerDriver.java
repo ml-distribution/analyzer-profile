@@ -2,7 +2,7 @@ package cc.pp.analyzer.ik.driver;
 
 import cc.pp.analyzer.ik.demo.IKSegmenterDemo;
 
-public class Driver {
+public class IKAnalyzerDriver {
 
 	/**
 	 * 主函数
