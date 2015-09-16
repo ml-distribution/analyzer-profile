@@ -1,23 +1,22 @@
 package cc.pp.analyzer.mmseg4j.rule;
 
-import cc.pp.analyzer.mmseg4j.Chunk;
+import cc.pp.analyzer.mmseg4j.core.Chunk;
 
 /**
  * Smallest Variance of Word Lengths.<p/>
- * 
+ *
  * 标准差的平方
- * 
- * @see http://technology.chtsai.org/mmseg/
- * 
- * @author chenlb 2009-3-16 上午11:28:27
+ *
+ * @author wanggang
+ *
  */
 public class SmallestVarianceRule extends Rule {
 
 	private double smallestVariance = Double.MAX_VALUE;
-	
+
 	@Override
 	public void addChunk(Chunk chunk) {
-		if(chunk.getVariance() <= smallestVariance) {
+		if (chunk.getVariance() <= smallestVariance) {
 			smallestVariance = chunk.getVariance();
 			super.addChunk(chunk);
 		}
@@ -31,7 +30,6 @@ public class SmallestVarianceRule extends Rule {
 
 	@Override
 	protected boolean isRemove(Chunk chunk) {
-		
 		return chunk.getVariance() > smallestVariance;
 	}
 

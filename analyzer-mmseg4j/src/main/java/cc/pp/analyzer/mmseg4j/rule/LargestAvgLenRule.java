@@ -1,23 +1,22 @@
 package cc.pp.analyzer.mmseg4j.rule;
 
-import cc.pp.analyzer.mmseg4j.Chunk;
+import cc.pp.analyzer.mmseg4j.core.Chunk;
 
 /**
  * Largest Average Word Length.<p/>
- * 
+ *
  * 长度(Length)/词数
- * 
- * @see http://technology.chtsai.org/mmseg/
- * 
- * @author chenlb 2009-3-16 上午11:28:21
+ *
+ * @author wanggang
+ *
  */
 public class LargestAvgLenRule extends Rule {
 
 	private double largestAvgLen;
-	
+
 	@Override
 	public void addChunk(Chunk chunk) {
-		if(chunk.getAvgLen() >= largestAvgLen) {
+		if (chunk.getAvgLen() >= largestAvgLen) {
 			largestAvgLen = chunk.getAvgLen();
 			super.addChunk(chunk);
 		}

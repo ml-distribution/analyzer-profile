@@ -5,14 +5,14 @@ import java.util.Map;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.util.TokenFilterFactory;
 
-import cc.pp.analyzer.mmseg4j.analyzer.CutLetterDigitFilter;
+import cc.pp.analyzer.mmseg4j.lucene.CutLetterDigitFilter;
 
 /**
- * CutLetterDigitFilter 支持在 solr 上配置用。
+ * CutLetterDigitFilter 支持在 solr 上配置用
  *
- * @author chenlb 2010-12-17下午10:10:48
+ * @author wanggang
+ *
  */
-@SuppressWarnings("deprecation")
 public class CutLetterDigitFilterFactory extends TokenFilterFactory {
 
 	public CutLetterDigitFilterFactory(Map<String, String> args) {

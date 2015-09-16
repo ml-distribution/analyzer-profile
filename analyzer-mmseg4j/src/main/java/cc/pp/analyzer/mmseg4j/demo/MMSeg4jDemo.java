@@ -17,6 +17,7 @@ public class MMSeg4jDemo {
 		MaxWordDemo maxword = new MaxWordDemo();
 		words = maxword.segWords("今天在淘宝上买了件衣服", " ");
 		System.out.println(words);
+
 	}
 
 }

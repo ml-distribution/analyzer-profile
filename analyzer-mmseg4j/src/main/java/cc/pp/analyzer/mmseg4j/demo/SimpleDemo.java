@@ -2,13 +2,9 @@ package cc.pp.analyzer.mmseg4j.demo;
 
 import java.io.IOException;
 
-import cc.pp.analyzer.mmseg4j.Seg;
-import cc.pp.analyzer.mmseg4j.SimpleSeg;
+import cc.pp.analyzer.mmseg4j.core.Seg;
+import cc.pp.analyzer.mmseg4j.core.SimpleSeg;
 
-/**
- * 
- * @author chenlb 2009-3-14 上午12:38:40
- */
 public class SimpleDemo extends ComplexDemo {
 
 	@Override

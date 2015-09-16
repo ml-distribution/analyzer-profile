@@ -15,7 +15,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.solr</groupId>
-			<artifactId>solr-core</artifactId> <!-- 4.3.1 -->
+			<artifactId>solr-core</artifactId>
 			<exclusions>
 				<exclusion>
 					<groupId>com.googlecode.concurrentlinkedhashmap</groupId>
@@ -33,7 +33,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.apache.lucene</groupId>
-			<artifactId>lucene-core</artifactId>  <!-- 4.3.1 -->
+			<artifactId>lucene-core</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.lucene</groupId>
@@ -61,6 +61,22 @@
 			<artifactId>slf4j-api</artifactId>
 		</dependency>
 		<!-- 测试包 -->
+		<dependency>
+			<groupId>org.apache.solr</groupId>
+			<artifactId>solr-test-framework</artifactId>
+			<version>${solr.version}</version>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>com.googlecode.concurrentlinkedhashmap</groupId>
+					<artifactId>concurrentlinkedhashmap-lru</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>joda-time</groupId>
+					<artifactId>joda-time</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -97,9 +113,6 @@
 					<argLine>-Xmx1024m</argLine>
 				</configuration>
 			</plugin>
-			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-gpg-plugin</artifactId> 
-				<executions> <execution> <id>sign-artifacts</id> <phase>verify</phase> <goals> 
-				<goal>sign</goal> </goals> </execution> </executions> </plugin> -->
 		</plugins>
 
 		<finalName>${project.artifactId}-${project.version}</finalName>

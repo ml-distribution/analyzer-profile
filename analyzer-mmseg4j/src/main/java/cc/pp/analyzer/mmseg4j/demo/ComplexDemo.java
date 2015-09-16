@@ -6,11 +6,11 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringReader;
 
-import cc.pp.analyzer.mmseg4j.ComplexSeg;
-import cc.pp.analyzer.mmseg4j.Dictionary;
-import cc.pp.analyzer.mmseg4j.MMSeg;
-import cc.pp.analyzer.mmseg4j.Seg;
-import cc.pp.analyzer.mmseg4j.Word;
+import cc.pp.analyzer.mmseg4j.core.ComplexSeg;
+import cc.pp.analyzer.mmseg4j.core.Dictionary;
+import cc.pp.analyzer.mmseg4j.core.MMSeg;
+import cc.pp.analyzer.mmseg4j.core.Seg;
+import cc.pp.analyzer.mmseg4j.core.Word;
 
 public class ComplexDemo {
 
@@ -24,15 +24,18 @@ public class ComplexDemo {
 		return new ComplexSeg(dic);
 	}
 
-	public String segWords(Reader input, String wordSpilt) throws IOException {
+	public static void main(String[] args) throws IOException {
+		new ComplexDemo().run(args);
+	}
 
+	public String segWords(Reader input, String wordSpilt) throws IOException {
 		StringBuilder sb = new StringBuilder();
-		Seg seg = getSeg();	//取得不同的分词具体算法
+		Seg seg = getSeg(); //取得不同的分词具体算法
 		MMSeg mmSeg = new MMSeg(input, seg);
 		Word word = null;
 		boolean first = true;
 		while ((word = mmSeg.next()) != null) {
-			if(!first) {
+			if (!first) {
 				sb.append(wordSpilt);
 			}
 			String w = word.getString();
@@ -40,6 +43,7 @@ public class ComplexDemo {
 			first = false;
 
 		}
+
 		return sb.toString();
 	}
 
@@ -56,7 +60,7 @@ public class ComplexDemo {
 
 		String txt = "京华时报２００８年1月23日报道 昨天，受一股来自中西伯利亚的强冷空气影响，本市出现大风降温天气，白天最高气温只有零下7摄氏度，同时伴有6到7级的偏北风。";
 
-		if(args.length > 0) {
+		if (args.length > 0) {
 			txt = args[0];
 		}
 
@@ -70,16 +74,12 @@ public class ComplexDemo {
 			} else if ("".equals(inputStr)) {
 				printlnHelp();
 			} else {
-				//System.out.println(inputStr);
-				System.out.println(segWords(inputStr, " | ")); //分词
+				// System.out.println(inputStr);
+				// 分词
+				System.out.println(segWords(inputStr, " | "));
 				System.out.print("\nmmseg4j-" + this.getClass().getSimpleName().toLowerCase() + ">");
 			}
 		}
-	}
-
-	public static void main(String[] args) throws IOException {
-
-		new ComplexDemo().run(args);
 	}
 
 }

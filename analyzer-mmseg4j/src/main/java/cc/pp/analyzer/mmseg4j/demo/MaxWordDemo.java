@@ -2,8 +2,8 @@ package cc.pp.analyzer.mmseg4j.demo;
 
 import java.io.IOException;
 
-import cc.pp.analyzer.mmseg4j.MaxWordSeg;
-import cc.pp.analyzer.mmseg4j.Seg;
+import cc.pp.analyzer.mmseg4j.core.MaxWordSeg;
+import cc.pp.analyzer.mmseg4j.core.Seg;
 
 public class MaxWordDemo extends ComplexDemo {
 
@@ -15,4 +15,5 @@ public class MaxWordDemo extends ComplexDemo {
 	public static void main(String[] args) throws IOException {
 		new MaxWordDemo().run(args);
 	}
+
 }
