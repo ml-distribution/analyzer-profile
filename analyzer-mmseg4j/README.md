@@ -1,6 +1,6 @@
 ## MMSeg4j
 
-> 目前兼容到Lucene5.1.0和Solr5.1.0版本，在原IK中文分词版本5.0上进行修改。
+> 目前兼容到Lucene5.5.0和Solr5.5.0版本，在原IK中文分词版本5.0上进行修改。
 
 ### 分词器说明
 
@@ -16,29 +16,29 @@
 
 mmseg4j实现的功能详情请看：[google code](http://mmseg4j.googlecode.com/svn/trunk/CHANGES.txt)。
 
-3. 在 cc.pp.analyzer.mmseg4j.demo包里的类示例了三种分词效果。
+3. 在 info.bbd.analyzer.mmseg4j.demo包里的类示例了三种分词效果。
 
-4. 在 cc.pp.analyzer.mmseg4j.lucene包里扩展lucene analyzer。MMSegAnalyzer默认使用max-word方式分词(还有：ComplexAnalyzer, SimplexAnalyzer, MaxWordAnalyzer)。
+4. 在 info.bbd.analyzer.mmseg4j.lucene包里扩展lucene analyzer。MMSegAnalyzer默认使用max-word方式分词(还有：ComplexAnalyzer, SimplexAnalyzer, MaxWordAnalyzer)。
 
-5. 在 cc.pp.analyzer.mmseg4j.solr包里扩展solr tokenizerFactory。 1.9.0 可以不用 dicPath 参数，可以使用 mmseg4j-core-1.9.0.jar 里的 words.dic 在 solr的 schema.xml 
+5. 在 info.bbd.analyzer.mmseg4j.solr包里扩展solr tokenizerFactory。 1.9.0 可以不用 dicPath 参数，可以使用 mmseg4j-core-1.9.0.jar 里的 words.dic 在 solr的 schema.xml 
 中定义 field type如：
 
 ```xml
 <fieldtype name="textComplex" class="solr.TextField" positionIncrementGap="100">
       <analyzer>
-             <tokenizer class="cc.pp.analyzer.mmseg4j.solr.MMSegTokenizerFactory" mode="complex" dicPath="mmseg4j_dic">
+             <tokenizer class="info.bbd.analyzer.mmseg4j.solr.MMSegTokenizerFactory" mode="complex" dicPath="mmseg4j_dic">
              </tokenizer>
       </analyzer>
 </fieldtype>
 <fieldtype name="textMaxWord" class="solr.TextField" positionIncrementGap="100">
       <analyzer>
-             <tokenizer class="cc.pp.analyzer.mmseg4j.solr.MMSegTokenizerFactory" mode="max-word" dicPath="mmseg4j_dic">
+             <tokenizer class="info.bbd.analyzer.mmseg4j.solr.MMSegTokenizerFactory" mode="max-word" dicPath="mmseg4j_dic">
              </tokenizer>
       </analyzer>
 </fieldtype>
 <fieldtype name="textSimple" class="solr.TextField" positionIncrementGap="100">
       <analyzer>
-             <tokenizer class="cc.pp.analyzer.mmseg4j.solr.MMSegTokenizerFactory" mode="simple" dicPath="XXX/solr-4.8-example/sentiment//mmseg4j_dic">
+             <tokenizer class="info.bbd.analyzer.mmseg4j.solr.MMSegTokenizerFactory" mode="simple" dicPath="XXX/solr-4.8-example/sentiment//mmseg4j_dic">
              </tokenizer>
       </analyzer>
 </fieldtype>
@@ -53,11 +53,11 @@ mmseg4j实现的功能详情请看：[google code](http://mmseg4j.googlecode.com
 6. 运行，词典用mmseg.dic.path属性指定、在classpath 目录下或在当前目录下的data目录，默认是 classpath/data 目录。
 
 ```java
-java -jar analyzer-mmseg4j-5.1.0.jar `这里是字符串`。
+java -jar analyzer-mmseg4j-5.5.0.jar `这里是字符串`。
 
-java -cp .;analyzer-mmseg4j-5.1.0.jar -Dmmseg.dic.path=./other-dic cc.pp.analyzer.mmseg4j.demo.SimpleDemo `这里是字符串`。
+java -cp .;analyzer-mmseg4j-5.5.0.jar -Dmmseg.dic.path=./other-dic info.bbd.analyzer.mmseg4j.demo.SimpleDemo `这里是字符串`。
 
-java -cp .;analyzer-mmseg4j-5.1.0.jar cc.pp.analyzer.mmseg4j.demo.MaxWordDemo `这里是字符串`
+java -cp .;analyzer-mmseg4j-5.5.0.jar info.bbd.analyzer.mmseg4j.demo.MaxWordDemo `这里是字符串`
 ```
 
 7. 一些字符的处理 英文、俄文、希腊、数字（包括①㈠⒈）的分出一连串的。目前版本没有处理小数字问题， 如ⅠⅡⅢ是单字分，字库(chars.dic)中没找到也单字分。
@@ -85,7 +85,7 @@ java -cp .;analyzer-mmseg4j-5.1.0.jar cc.pp.analyzer.mmseg4j.demo.MaxWordDemo `�
 > solrconfig.xml：
 
 ```xml
-<requesthandler name="/mmseg4j" class="cc.pp.analyzer.mmseg4j.solr.MMseg4jHandler">
+<requesthandler name="/mmseg4j" class="info.bbd.analyzer.mmseg4j.solr.MMseg4jHandler">
     <lst name="defaults">
         <str name="dicPath">
             dic

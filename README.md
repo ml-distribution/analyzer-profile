@@ -1,13 +1,7 @@
 
 # 分词服务项目
 
-> 基于Java实现，当前分词器版本为5.1.0。
-
-## 项目内容
-
-- [项目简介](#项目简介)
-- [项目架构](#项目架构)
-- [开发人员](#开发人员)
+> 基于Java实现，当前分词器版本为5.5.0。
 
 ----
 
@@ -19,23 +13,11 @@
 
 ### 项目框架
 
-`analyzer-ictclas4j`: 基于FreeICTCLAS的分词器
-
 `analyzer-ik`: 模拟语义分词器
-
-`analyzer-imdict`: 基于HMM算法的分词器
 
 `analyzer-mmseg4j`: 基于MMSeg算法的分词器
 
-`analyzer-paoding`: 庖丁分词器
-
-`analyzer-smallseg`: 基于DFA的轻量级分词器
-
-`analyzer-fudan`: 复旦大学的分词器
-
 `analyzer-smartcn`: Lucene官方自带的分词器
-
-`analyzer-testing`: 各分词器性能测试
 
 `analyzer-web`: Restful风格的分词接口
 
@@ -62,6 +44,10 @@ analyzer  | 解析器
 wordsegment    | 分词器
 testing  | 测试模块
 web      |  接口服务
+
+### 打包命令
+
+mvn deploy [-Dmaven.test.skip=true]
 
 ### 示例代码
 

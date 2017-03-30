@@ -3,36 +3,28 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>zx.soft</groupId>
+		<groupId>info.bbd</groupId>
 		<artifactId>common-parent</artifactId>
-		<version>2.0.0</version>
+		<version>1.0.0</version>
 	</parent>
 
 	<artifactId>analyzer-profile</artifactId>
 	<packaging>pom</packaging>
-	<version>5.1.0</version>
+	<version>5.5.0</version>
 	<name>Analyzer Profile [Build POM]</name>
 	<description>Profiling several Analyzers for Chinese Words Segment</description>
 
 	<modules>
-		<module>analyzer-ictclas4j</module>
 		<module>analyzer-ik</module>
-		<module>analyzer-imdict</module>
 		<module>analyzer-mmseg4j</module>
-		<module>analyzer-paoding</module>
-		<module>analyzer-smallseg</module>
-		<module>analyzer-fudan</module>
-		<module>analyzer-smartcn</module>
-		<module>analyzer-ansj</module>
-		<module>analyzer-testing</module>
 		<module>analyzer-web</module>
 	</modules>
 
 	<dependencies>
 		<dependency>
-			<groupId>zx.soft</groupId>
+			<groupId>info.bbd</groupId>
 			<artifactId>common-utils</artifactId>
-			<version>1.1.0</version>
+			<version>1.0.0</version>
 		</dependency>
 	</dependencies>
 
@@ -57,19 +49,26 @@
 		</plugins>
 	</build>
 
+	<!-- 私有仓库 -->
 	<repositories>
 		<repository>
-			<id>zxsoft-public</id>
-			<name>Nexus Release Repository</name>
-			<url>http://192.168.3.23:18081/nexus/content/groups/public/</url>
-		</repository>
-		<!-- Restlet 仓库 -->
-		<repository>
-			<id>maven-restlet</id>
-			<name>Public online Restlet repository</name>
-			<url>http://maven.restlet.org</url>
+			<id>public</id>
+			<name>Public Repository</name>
+			<url>http://192.168.0.111:8081/nexus/content/groups/public</url>
 		</repository>
 	</repositories>
+
+	<!-- 打包发布 -->
+	<distributionManagement>
+		<repository>
+			<id>releases</id>
+			<url>http://192.168.0.111:8081/nexus/content/repositories/releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>snapshots</id>
+			<url>http://192.168.0.111:8081/nexus/content/repositories/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
 
 	<inceptionYear>2014</inceptionYear>
 

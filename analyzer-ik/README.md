@@ -1,6 +1,6 @@
 ## IK Analyzer
 
-> 目前兼容到Lucene5.1.0和Solr5.1.0版本，在原IK中文分词版本5.0上进行修改。
+> 目前兼容到Lucene5.5.0和Solr5.5.0版本，在原IK中文分词版本5.0上进行修改。
 
 ### 分词器说明
 
@@ -14,7 +14,7 @@
 
 1. 采用了特有的**正向迭代最细粒度切分算法**，支持`细粒度`和`智能分词`两种切分模式；
 
-2. 在系统环境：Core2 i7 3.4G双核，4G内存，window 7 64位， Sun JDK 1.6_29 64位 普通pc环境测试，IK2012具有160万字/秒（3000KB/S）的高速处理能力。
+2. 在系统环境：Core2 i7 3.4G双核，4G内存，window 7 64位， Sun JDK 1.8 64位 普通pc环境测试，IK2012具有160万字/秒（3000KB/S）的高速处理能力。
 
 3. 2012版本的智能分词模式支持简单的分词排歧义处理和数量词合并输出。
 
@@ -22,7 +22,7 @@
 
 5. 优化的词典存储，更小的内存占用。支持用户词典扩展定义。特别的，在2012版本，词典支持中文，英文，数字混合词语。
 
-6. 兼容lucene5.1.0和solr5.1.0版本，并在性能上做了很多优化。
+6. 兼容lucene5.5.0和solr5.5.0版本，并在性能上做了很多优化。
 
 ### 项目配置
 
@@ -54,18 +54,18 @@ search-prod环境中:
 ```xml
     <fieldType name="text_ik" class="solr.TextField">   
       <analyzer type="index">
-        <tokenizer class="cc.pp.analyzer.ik.solr.IKTokenizerFactory" useSmart="false" />
+        <tokenizer class="info.bbd.analyzer.ik.solr.IKTokenizerFactory" useSmart="false" />
       </analyzer>
       <analyzer type="query">
-        <tokenizer class="cc.pp.analyzer.ik.solr.IKTokenizerFactory" useSmart="true" />
+        <tokenizer class="info.bbd.analyzer.ik.solr.IKTokenizerFactory" useSmart="true" />
       </analyzer>
     </fieldType>
  ```
  **或者**
  ```
    <fieldType name="text_ik" class="solr.TextField">   
-      <analyzer type="index" useSmart="false" class="cc.pp.analyzer.ik.lucene.IKAnalyzer"/>   
-      <analyzer type="query" useSmart="true" class="cc.pp.analyzer.ik.lucene.IKAnalyzer"/>   
+      <analyzer type="index" useSmart="false" class="info.bbd.analyzer.ik.lucene.IKAnalyzer"/>   
+      <analyzer type="query" useSmart="true" class="info.bbd.analyzer.ik.lucene.IKAnalyzer"/>   
     </fieldType>
  ```
 > 具体参考search-prod项目中的配置。
