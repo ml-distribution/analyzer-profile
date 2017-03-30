@@ -17,8 +17,6 @@
 
 `analyzer-mmseg4j`: 基于MMSeg算法的分词器
 
-`analyzer-smartcn`: Lucene官方自带的分词器
-
 `analyzer-web`: Restful风格的分词接口
 
 
