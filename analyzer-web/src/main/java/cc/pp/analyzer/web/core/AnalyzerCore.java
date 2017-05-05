@@ -11,7 +11,6 @@ import org.apache.lucene.util.Version;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import cc.pp.analyzer.fudan.core.WordExtractFudan;
 import cc.pp.analyzer.ik.lucene.IKAnalyzer;
 import cc.pp.analyzer.mmseg4j.wordseg.MMSeg4jWordSeg;
 import cc.pp.analyzer.web.domain.WordsList;
@@ -26,7 +25,7 @@ public class AnalyzerCore {
 	private static Logger logger = LoggerFactory.getLogger(AnalyzerCore.class);
 
 	// 复旦大学关键词提取器
-	private final WordExtractFudan fudanKeyword;
+	//	private final WordExtractFudan fudanKeyword;
 
 	// IK 分词器
 	private final IKAnalyzer ikAnalyzer;
@@ -35,7 +34,7 @@ public class AnalyzerCore {
 	private final MMSeg4jWordSeg mmseg4jAnalyzer;
 
 	public AnalyzerCore() {
-		fudanKeyword = new WordExtractFudan();
+		//		fudanKeyword = new WordExtractFudan();
 		ikAnalyzer = new IKAnalyzer(Version.LUCENE_48);
 		mmseg4jAnalyzer = new MMSeg4jWordSeg();
 	}
@@ -100,21 +99,21 @@ public class AnalyzerCore {
 	 * @param keywordNum   分词数
 	 * @return
 	 */
-	public WordsList getFudanKeywords(String str, String wordCharacter, int keywordNum) {
-		WordsList result = new WordsList();
-		List<String> keywords = fudanKeyword.extractList(str, wordCharacter, keywordNum);
-		result.setCount(keywords.size());
-		result.setWords(keywords);
-		return result;
-	}
+	//	public WordsList getFudanKeywords(String str, String wordCharacter, int keywordNum) {
+	//		WordsList result = new WordsList();
+	//		List<String> keywords = fudanKeyword.extractList(str, wordCharacter, keywordNum);
+	//		result.setCount(keywords.size());
+	//		result.setWords(keywords);
+	//		return result;
+	//	}
 
-	public WordsList getFudanKeywords(String str, int keywordNum) {
-		return getFudanKeywords(str, "", keywordNum);
-	}
-
-	public WordsList getFudanKeywords(String str) {
-		return getFudanKeywords(str, "", 50);
-	}
+	//	public WordsList getFudanKeywords(String str, int keywordNum) {
+	//		return getFudanKeywords(str, "", keywordNum);
+	//	}
+	//
+	//	public WordsList getFudanKeywords(String str) {
+	//		return getFudanKeywords(str, "", 50);
+	//	}
 
 	public void close() {
 		ikAnalyzer.close();

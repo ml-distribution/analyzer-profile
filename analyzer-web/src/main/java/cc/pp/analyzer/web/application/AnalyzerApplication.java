@@ -42,9 +42,9 @@ public class AnalyzerApplication extends Application {
 	/**
 	 * 复旦大学关键词提取
 	 */
-	public WordsList getFudanKeywords(String str) {
-		return analyzerCore.getFudanKeywords(str, 1_000);
-	}
+	//	public WordsList getFudanKeywords(String str) {
+	//		return analyzerCore.getFudanKeywords(str, 1_000);
+	//	}
 
 	public void close() {
 		analyzerCore.close();

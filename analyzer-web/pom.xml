@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>zx.soft</groupId>
 		<artifactId>analyzer-profile</artifactId>
-		<version>2.0.0</version>
+		<version>4.8.0</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
@@ -13,11 +13,6 @@
 	<name>Analyzer Web</name>
 
 	<dependencies>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>analyzer-ictclas4j</artifactId>
-			<version>${project.version}</version>
-		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>analyzer-ik</artifactId>
@@ -35,37 +30,7 @@
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>analyzer-imdict</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
 			<artifactId>analyzer-mmseg4j</artifactId>
-			<version>${project.version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.restlet.jee</groupId>
-					<artifactId>org.restlet</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.restlet.jee</groupId>
-					<artifactId>org.restlet.ext.servlet</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>analyzer-paoding</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>analyzer-smallseg</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>analyzer-fudan</artifactId>
 			<version>${project.version}</version>
 			<exclusions>
 				<exclusion>
@@ -142,7 +107,7 @@
 				<artifactId>maven-jar-plugin</artifactId>
 				<configuration>
 					<excludes>
-				    	<exclude>logback.xml</exclude>
+						<exclude>logback.xml</exclude>
 						<exclude>web-server.properties</exclude>
 					</excludes>
 				</configuration>

@@ -42,9 +42,10 @@ public class AnalyzerResource extends ServerResource {
 		} catch (UnsupportedEncodingException e) {
 			//
 		}
-		if ("fudan".equalsIgnoreCase(analyzer)) {
-			return application.getFudanKeywords(text);
-		} else if ("ik".equalsIgnoreCase(analyzer)) {
+		//		if ("fudan".equalsIgnoreCase(analyzer)) {
+		//			return application.getFudanKeywords(text);
+		//		} else 
+		if ("ik".equalsIgnoreCase(analyzer)) {
 			return application.getIKSegWords(text, Integer.parseInt(type));
 		} else if ("mmseg4j".equalsIgnoreCase(analyzer)) {
 			return application.getMMSeg4jSegWords(text, Integer.parseInt(type));
